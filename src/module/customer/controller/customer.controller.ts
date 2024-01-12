@@ -4,8 +4,10 @@ import { CreateCustomerDto } from "../app/dto/create.customer.dto";
 
 export class CustomerController {
 	baseRoute = "/customer";
-	constructor(private customerService: CustomerService) {}
-
+	private readonly customerService: CustomerService;
+	constructor(customerService: CustomerService) {
+		this.customerService = customerService;
+	}
 	configureRoutes(app: Application) {
 		console.log("Routes set");
 		app.post(`${this.baseRoute}/create`, this.create.bind(this));

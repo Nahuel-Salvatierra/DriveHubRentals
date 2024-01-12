@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { CustomerModel } from "../module/customer/infrastructure/customer.model";
 import { CustomerService } from "../module/customer/app/service/customer.service";
-import { CustomerController } from "../module/customer/interface/customer.controller";
+import { CustomerController } from "../module/customer/controller/customer.controller";
 import { CustomerRepository } from "../module/customer/infrastructure/customer.repository";
 import { DIContainer } from "rsdi";
 

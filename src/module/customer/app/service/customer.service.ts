@@ -2,6 +2,7 @@ import Customer from "../../domain/customer.entity";
 import { CustomerRepository } from "../../infrastructure/customer.repository";
 import { UpdateCustomerDto } from "../dto/update.customer.dto";
 import { fromDtoToEntity } from "../mapper/fromCustomerDtotoEntity";
+import { ICustomerRepository } from "../repository/customer.repository.interface";
 
 export class CustomerService {
 	private readonly customerRepository: CustomerRepository;
