@@ -1,7 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 
 export class CustomerModel extends Model {
-
 	static setup(sequelizeInstance: Sequelize) {
 		CustomerModel.init(
 			{
@@ -45,10 +44,11 @@ export class CustomerModel extends Model {
 			},
 			{
 				sequelize: sequelizeInstance,
-				modelName: "Car",
-				timestamps: false,
+				modelName: "Customer",
+				timestamps: true,
+				updatedAt: true,
 			}
 		);
-		return CustomerModel
+		return CustomerModel;
 	}
 }

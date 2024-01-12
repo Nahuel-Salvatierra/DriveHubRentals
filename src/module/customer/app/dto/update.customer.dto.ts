@@ -1,10 +1,7 @@
-export enum IdentificationEnum {
-	dni = "dni",
-	passport = "passport",
-}
+import { IdentificationEnum } from "../../domain/customer.entity";
 
-export default class Customer {
-	id?: number;
+export class UpdateCustomerDto {
+	id: number;
 	name?: string;
 	lastName?: string;
 	documentType?: IdentificationEnum;
@@ -13,6 +10,4 @@ export default class Customer {
 	address?: string;
 	phone?: number;
 	email?: string;
-	createdAt?: Date;
-	updatedAt?: Date;
 }

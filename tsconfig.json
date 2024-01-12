@@ -1,13 +1,21 @@
 {
 	"compilerOptions": {
 		"target": "ES2016",
-		"module": "commonjs",
+		"module": "ES2020",
+		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"forceConsistentCasingInFileNames": true,
-		"strict": false,
+		"strict":true,
+		// "allowImportingTsExtensions": true,
+		// "noEmit":true,
+		// "emitDeclarationOnly": false,
 		"skipLibCheck": true,
-		"outDir": "./dist"
+		"outDir": "./src",
+		// "baseUrl": "./",
+		// "types": ["node"],
+		// "resolveJsonModule": true,
+		// "allowJs": true
 	}
 }
