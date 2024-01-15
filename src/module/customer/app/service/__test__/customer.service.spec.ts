@@ -1,14 +1,14 @@
-import { CustomerRepository } from "../../../customer.module";
+import { CustomerRepository, CustomerService } from "../../../customer.module";
 import { customerModel } from "../../repository/__test__/customer.repository.spec";
-import { CustomerService } from "../customer.service";
 
 describe("Customer Service", () => {
+	
 	const repositoryMock: CustomerRepository = {
-		save: jest.fn(),
-		getById: jest.fn(),
-		getAll: jest.fn(),
-		delete: jest.fn(),
-		customerModel: customerModel,
+		save: jest.fn(()=>Promise.resolve({})),
+		getById: jest.fn(()=>Promise.resolve({})),
+		getAll: jest.fn(()=>Promise.resolve([])),
+		delete: jest.fn(()=>Promise.resolve(true)),
+		customerModel: customerModel
 	};
 
 	const customerService = new CustomerService(repositoryMock);

@@ -23,9 +23,13 @@ export class CustomerService {
 	}
 
 	async getById(customerId: number): Promise<Customer> {
-		const customer = await this.customerRepository.getById(customerId);
-		if (!customer) throw new Error("Customer not found");
-		return customer;
+		try {
+			const customer = await this.customerRepository.getById(customerId);
+			if (!customer) throw new Error("Customer not found");
+			return customer;
+		} catch (error) {
+			throw error
+		}
 	}
 
 	async update(
