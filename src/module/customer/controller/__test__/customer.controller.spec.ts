@@ -1,10 +1,8 @@
 import {
 	sampleCustomer,
-	savedCustomer,
 } from "../../../../__test__/customer.fixture";
 import { ICustomerRepository } from "../../app/repository/customer.repository.interface";
-import { CustomerService } from "../../customer.module";
-import { CustomerController } from "../customer.controller";
+import { CustomerService, CustomerController } from "../../customer.module";
 import { NextFunction, Request, Response } from "express";
 
 describe("Customer controller", () => {
@@ -21,9 +19,7 @@ describe("Customer controller", () => {
 		getAll: jest.fn(() => Promise.resolve([])),
 		update: jest.fn(() => Promise.resolve({})),
 		delete: jest.fn(() => Promise.resolve()),
-		get customerRepository() {
-			return customerRepository;
-		},
+		customerRepository: customerRepository
 	};
 
 	let req: Partial<Request> = {
