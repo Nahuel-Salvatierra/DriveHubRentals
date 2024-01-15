@@ -1,9 +1,9 @@
-import { IdentificationEnum } from "../../domain/customer.entity";
+import { DocumentTypeEnum } from "../../domain/customer.entity";
 
 export class CreateCustomerDto {
 	name: string;
 	lastName: string;
-	documentType: IdentificationEnum;
+	documentType: DocumentTypeEnum;
 	documentNumber: number;
 	birthrate: Date;
 	address: string;
@@ -22,7 +22,7 @@ export class CreateCustomerDto {
 	}: {
 		name: string;
 		lastName: string;
-		documentType: IdentificationEnum;
+		documentType: DocumentTypeEnum;
 		documentNumber: number;
 		birthrate: Date;
 		address: string;

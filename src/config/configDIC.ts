@@ -4,27 +4,7 @@ import { CustomerService } from "../module/customer/app/service/customer.service
 import { CustomerController } from "../module/customer/controller/customer.controller";
 import { CustomerRepository } from "../module/customer/infrastructure/customer.repository";
 import { DIContainer } from "rsdi";
-
-export const dbConfig = (): Sequelize => {
-	if (process.env.PROJECT_STATUS === "development") {
-		const sequelize = new Sequelize({
-			dialect: "sqlite",
-			storage: "./data/development_database.sqlite",
-		});
-		return sequelize;
-	}
-
-	if (process.env.PROJECT_STATUS === "test") {
-		const sequelize = new Sequelize({
-			dialect: "sqlite",
-			storage: `./data/test/test${Math.random() * 1000}.sqlite`,
-			logging: false,
-		});
-		return sequelize;
-	}
-
-	throw Error("PROJECT_STATUS env variable not found");
-};
+import { dbConfig } from "./init.db";
 
 export const sequelize = new Sequelize({
 	database: "DHR_DB",

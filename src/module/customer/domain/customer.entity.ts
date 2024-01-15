@@ -1,4 +1,4 @@
-export enum IdentificationEnum {
+export enum DocumentTypeEnum {
 	dni = "dni",
 	passport = "passport",
 }
@@ -7,7 +7,7 @@ export default class Customer {
 	id?: number;
 	name?: string;
 	lastName?: string;
-	documentType?: IdentificationEnum;
+	documentType?: DocumentTypeEnum;
 	documentNumber?: number;
 	birthrate?: Date;
 	address?: string;

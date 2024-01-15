@@ -15,7 +15,6 @@ export class CustomerRepository implements ICustomerRepository {
 				isNewRecord: !customer.id,
 			}
 		);
-
 		await savedCustomer.save();
 		return fromCustomerModelToEntity(savedCustomer);
 	}
@@ -23,15 +22,20 @@ export class CustomerRepository implements ICustomerRepository {
 	async getCustomerById(customerId: number): Promise<Customer> {
 		const customer = await this.customerModel.findByPk(customerId);
 		if (customer) return fromCustomerModelToEntity(customer);
-		throw new Error('Customer not found')
+		throw new Error("Customer not found");
 	}
 
-	async getAllCustomers():Promise<Customer[]> {
-    const customers = await this.customerModel.findAll()
-    return customers.map(customer => fromCustomerModelToEntity(customer))
-  }
+	async getAllCustomers(): Promise<Customer[]> {
+		const customers = await this.customerModel.findAll();
+		return customers.map((customer) => fromCustomerModelToEntity(customer));
+	}
 
-  async deleteCustomer() {}
-
-	async getCustomerByEmail() {}
-}
+	//Esta verificacion de id tiene que existir creo que typescript ya lo esta validando
+	async deleteCustomer(id: number): Promise<Boolean> {
+		if (!id) throw new Error("Customer id not defined");
+		const customerDeleted = await this.customerModel.destroy({
+			where: { id: id },
+		});
+		return Boolean(customerDeleted);
+	}
+	}
