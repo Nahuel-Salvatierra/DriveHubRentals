@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import { CustomerModel, CustomerRepository } from "../../../customer.module";
-import { sampleCustomer } from "../../../../../__test__/sample.customer";
+import { sampleCustomer } from "../../../../../__test__/customer.fixture";
 const sequelizeInstance = new Sequelize("sqlite::memory");
 export const customerModel = CustomerModel.setup(sequelizeInstance);
 
