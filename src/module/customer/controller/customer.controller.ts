@@ -11,9 +11,10 @@ export class CustomerController {
 	configureRoutes(app: Application) {
 		console.log("Routes set");
 		app.post(`${this.baseRoute}/create`, this.create.bind(this));
-		app.get(`${this.baseRoute}`, this.getAllCustomers.bind(this));
-		app.get(`${this.baseRoute}/:id`, this.getCustomerById.bind(this));
-		app.put(`${this.baseRoute}/:id`, this.updateCustomer.bind(this));
+		app.get(`${this.baseRoute}`, this.getAll.bind(this));
+		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
+		app.put(`${this.baseRoute}/:id`, this.update.bind(this));
+		app.delete(`${this.baseRoute}/:id`, this.delete.bind(this))
 	}
 
 	async create(req: Request, res: Response, next: NextFunction) {
@@ -29,32 +30,42 @@ export class CustomerController {
 		}
 	}
 
-	async getAllCustomers(req: Request, res: Response, next: NextFunction) {
+	async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
-			const customers = await this.customerService.getAllCustomers();
+			const customers = await this.customerService.getAll();
 			res.send(customers);
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	async getCustomerById(req: Request, res: Response, next: NextFunction) {
+	async getById(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params;
 		try {
-			const customer = await this.customerService.getCustomerById(+id);
+			const customer = await this.customerService.getById(+id);
 			res.send(customer);
 		} catch (error) {
 			next(error);
 		}
 	}
 
-	async updateCustomer(req: Request, res: Response, next: NextFunction) {
+	async update(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params;
 		try {
-			const customer = await this.customerService.getCustomerById(+id);
+			const customer = await this.customerService.getById(+id);
 			res.send(customer);
 		} catch (error) {
 			next(error);
+		}
+	}
+
+	async delete(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params;
+		try {
+			await this.customerService.delete(+id)
+			res.send('ok')
+		} catch (error) {
+			next(error)
 		}
 	}
 }

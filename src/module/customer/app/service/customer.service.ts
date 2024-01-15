@@ -5,44 +5,47 @@ import { fromDtoToEntity } from "../mapper/fromCustomerDtotoEntity";
 import { ICustomerRepository } from "../repository/customer.repository.interface";
 
 export class CustomerService {
-	private readonly customerRepository: CustomerRepository;
-	constructor(customerRepository: CustomerRepository) {
+	customerRepository: ICustomerRepository;
+	//customerRepository era una clase privada pero no podria mokearla en ts-jest para testear que
+	//llamara a sus metodos, estoy en duda si eso es conveniente.
+	constructor(customerRepository: ICustomerRepository) {
 		this.customerRepository = customerRepository;
 	}
 
-	async create(customer:Customer) {
-		const savedCustomer = await this.customerRepository.saveCustomer(
-			customer
-		);
+	async create(customer: Customer) {
+		const savedCustomer = await this.customerRepository.save(customer);
 		return savedCustomer;
 	}
 
-	async getAllCustomers(): Promise<Customer[]> {
-		const customers = await this.customerRepository.getAllCustomers();
+	async getAll(): Promise<Customer[]> {
+		const customers = await this.customerRepository.getAll();
 		return customers;
 	}
 
-	async getCustomerById(customerId: number): Promise<Customer> {
+	async getById(customerId: number): Promise<Customer> {
+		const customer = await this.customerRepository.getById(customerId);
+		if (!customer) throw new Error("Customer not found");
+		return customer;
+	}
+
+	async update(
+		updateCustomerDto: UpdateCustomerDto,
+		customerId: number
+	): Promise<Customer> {
 		try {
-			const customer = await this.customerRepository.getCustomerById(
+			const customerToUpdate = await this.customerRepository.getById(
 				customerId
 			);
-			if (!customer) throw new Error("Customer not found");
-			return customer;
+			const customer = fromDtoToEntity(updateCustomerDto);
+			return await this.customerRepository.save(customer);
 		} catch (error) {
 			throw error;
 		}
 	}
 
-	async updateCustomer(
-		updateCustomerDto: UpdateCustomerDto,
-		customerId: number
-	): Promise<Customer> {
+	async delete(customerId: number): Promise<void> {
 		try {
-			const customerToUpdate =
-				await this.customerRepository.getCustomerById(customerId);
-			const customer = fromDtoToEntity(updateCustomerDto);
-			return await this.customerRepository.saveCustomer(customer);
+			await this.customerRepository.delete(customerId);
 		} catch (error) {
 			throw error;
 		}

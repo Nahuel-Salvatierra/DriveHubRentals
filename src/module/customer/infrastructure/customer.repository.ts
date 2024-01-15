@@ -8,7 +8,7 @@ export class CustomerRepository implements ICustomerRepository {
 	constructor(customerModel: typeof CustomerModel) {
 		this.customerModel = customerModel;
 	}
-	async saveCustomer(customer: Customer): Promise<Customer> {
+	async save(customer: Customer): Promise<Customer> {
 		const savedCustomer = this.customerModel.build(
 			{ ...customer },
 			{
@@ -19,19 +19,19 @@ export class CustomerRepository implements ICustomerRepository {
 		return fromCustomerModelToEntity(savedCustomer);
 	}
 
-	async getCustomerById(customerId: number): Promise<Customer> {
+	async getById(customerId: number): Promise<Customer> {
 		const customer = await this.customerModel.findByPk(customerId);
 		if (customer) return fromCustomerModelToEntity(customer);
 		throw new Error("Customer not found");
 	}
 
-	async getAllCustomers(): Promise<Customer[]> {
+	async getAll(): Promise<Customer[]> {
 		const customers = await this.customerModel.findAll();
 		return customers.map((customer) => fromCustomerModelToEntity(customer));
 	}
 
 	//Esta verificacion de id tiene que existir creo que typescript ya lo esta validando
-	async deleteCustomer(id: number): Promise<Boolean> {
+	async delete(id: number): Promise<Boolean> {
 		if (!id) throw new Error("Customer id not defined");
 		const customerDeleted = await this.customerModel.destroy({
 			where: { id: id },

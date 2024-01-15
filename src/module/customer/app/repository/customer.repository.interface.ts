@@ -1,7 +1,8 @@
 import Customer from "../../domain/customer.entity";
 
 export interface ICustomerRepository {
-	saveCustomer(customer: Customer): Promise<Customer>;
-	getCustomerById(customerId: number): Promise<Customer | null>
-	getAllCustomers():Promise<Customer[]>
+	save(customer: Customer): Promise<Customer>;
+	getById(customerId: number): Promise<Customer | null>
+	getAll():Promise<Customer[]>
+	delete(id: number): Promise<Boolean>
 }
