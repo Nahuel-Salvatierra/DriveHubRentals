@@ -35,6 +35,5 @@ export const configDIC = (): DIContainer => {
 	addCustomerModuleDependency(container);
 	const db:Sequelize = container.get("sequelize" as never)
 	db.sync()
-	console.log(container);
 	return container;
 };
