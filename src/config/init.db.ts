@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 
 export const dbConfig = (): Sequelize => {
-	if (process.env.PROJECT_STATUS === "development") {
+	if (process.env.NODE_ENV === "development") {
 		const sequelize = new Sequelize({
 			dialect: "sqlite",
 			storage: "./data/DHR_development.sqlite",
@@ -9,7 +9,7 @@ export const dbConfig = (): Sequelize => {
 		return sequelize;
 	}
 
-	if (process.env.PROJECT_STATUS === "test") {
+	if (process.env.NODE_ENV === "test") {
 		const sequelize = new Sequelize({
 			dialect: "sqlite",
 			storage: `./data/test/DHR_test${new Date()}.sqlite`,
