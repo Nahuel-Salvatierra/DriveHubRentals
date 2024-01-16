@@ -6,8 +6,6 @@ import { ICustomerRepository } from "../repository/customer.repository.interface
 
 export class CustomerService {
 	customerRepository: ICustomerRepository;
-	//customerRepository era una clase privada pero no podria mokearla en ts-jest para testear que
-	//llamara a sus metodos, estoy en duda si eso es conveniente.
 	constructor(customerRepository: ICustomerRepository) {
 		this.customerRepository = customerRepository;
 	}
