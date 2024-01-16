@@ -1,6 +1,5 @@
-import {
-	sampleCustomer,
-} from "../../../../__test__/customer.fixture";
+import { TsJestCompileOptions } from "ts-jest";
+import { sampleCustomer } from "../../../../__test__/customer.fixture";
 import { ICustomerRepository } from "../../app/repository/customer.repository.interface";
 import { CustomerService, CustomerController } from "../../customer.module";
 import { NextFunction, Request, Response } from "express";
@@ -13,13 +12,13 @@ describe("Customer controller", () => {
 		delete: jest.fn(),
 	};
 
-	const serviceMock: CustomerService = {
+	let serviceMock: CustomerService | any = {
 		create: jest.fn(),
 		getById: jest.fn(() => Promise.resolve({})),
 		getAll: jest.fn(() => Promise.resolve([])),
 		update: jest.fn(() => Promise.resolve({})),
 		delete: jest.fn(() => Promise.resolve()),
-		customerRepository: customerRepository
+		customerRepository: customerRepository,
 	};
 
 	let req: Partial<Request> = {
@@ -64,5 +63,18 @@ describe("Customer controller", () => {
 			next as NextFunction
 		);
 		expect(serviceMock.delete).toHaveBeenCalledTimes(1);
+	});
+
+	it("Should reject request and throw error", async () => {
+		const errorMessage = "Error test";
+		const mockFn = Promise.reject(errorMessage);
+		serviceMock.getById.mockImplementationOnce(() => mockFn);
+		await controller.getById(
+			req as Request,
+			res as Response,
+			next as NextFunction
+		);
+		expect(next).toHaveBeenCalledWith(errorMessage);
+		expect(serviceMock.getById).toHaveBeenCalledWith(expect.any(Number));
 	});
 });
