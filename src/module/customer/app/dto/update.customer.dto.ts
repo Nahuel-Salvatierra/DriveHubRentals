@@ -1,11 +1,11 @@
-import { IdentificationEnum } from "../../domain/customer.entity";
+import { DocumentTypeEnum } from "../../domain/customer.entity";
 
 export class UpdateCustomerDto {
 	name?: string;
 	lastName?: string;
-	documentType?: IdentificationEnum;
+	documentType?: DocumentTypeEnum;
 	documentNumber?: number;
-	dateOfBirth?: Date;
+	birthDate?: Date;
 	address?: string;
 	phone?: number;
 	email?: string;

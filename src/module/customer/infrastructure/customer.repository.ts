@@ -30,11 +30,10 @@ export class CustomerRepository implements ICustomerRepository {
 		return customers.map((customer) => fromCustomerModelToEntity(customer));
 	}
 
-	//Esta verificacion de id tiene que existir creo que typescript ya lo esta validando
-	async delete(id: number): Promise<Boolean> {
-		if (!id) throw new Error("Customer id not defined");
+	async delete(carId: number): Promise<Boolean> {
+		if (!carId) throw new Error("Customer id not defined");
 		const customerDeleted = await this.customerModel.destroy({
-			where: { id: id },
+			where: { id: carId },
 		});
 		return Boolean(customerDeleted);
 	}

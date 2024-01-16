@@ -5,7 +5,7 @@ export class CreateCustomerDto {
 	lastName: string;
 	documentType: DocumentTypeEnum;
 	documentNumber: number;
-	dateOfBirth: Date;
+	birthDate: Date;
 	address: string;
 	phone: number;
 	email: string;
@@ -15,7 +15,7 @@ export class CreateCustomerDto {
 		lastName,
 		documentType,
 		documentNumber,
-		dateOfBirth,
+		birthDate,
 		address,
 		phone,
 		email,
@@ -24,7 +24,7 @@ export class CreateCustomerDto {
 		lastName: string;
 		documentType: DocumentTypeEnum;
 		documentNumber: number;
-		dateOfBirth: Date;
+		birthDate: Date;
 		address: string;
 		phone: number;
 		email: string;
@@ -33,7 +33,7 @@ export class CreateCustomerDto {
 		this.lastName = lastName;
 		this.documentType = documentType;
 		this.documentNumber = documentNumber;
-		this.dateOfBirth = dateOfBirth;
+		this.birthDate = birthDate;
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
@@ -52,7 +52,7 @@ export class CreateCustomerDto {
 		if (this.documentNumber === undefined) {
 			throw new Error("Validation error");
 		}
-		if (this.dateOfBirth === undefined) {
+		if (this.birthDate === undefined) {
 			throw new Error("Validation error");
 		}
 		if (this.address === undefined) {
