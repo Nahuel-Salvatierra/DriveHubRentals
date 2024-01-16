@@ -6,12 +6,6 @@ import { CustomerRepository } from "../module/customer/infrastructure/customer.r
 import { DIContainer } from "rsdi";
 import { dbConfig } from "./init.db";
 
-export const sequelize = new Sequelize({
-	database: "DHR_DB",
-	dialect: "sqlite",
-	storage: `./data/test/DHR_DB.sqlite`,
-});
-
 export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 	dIContainer
 		.add("sequelize", () => dbConfig())
