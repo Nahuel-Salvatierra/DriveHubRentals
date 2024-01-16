@@ -6,7 +6,7 @@ export const fromCustomerModelToEntity = ({
 	lastName,
 	documentType,
 	documentNumber,
-	birthrate,
+	dateOfBirth,
 	address,
 	phone,
 	email,
@@ -19,7 +19,7 @@ export const fromCustomerModelToEntity = ({
 	customerEntity.lastName = lastName;
 	customerEntity.documentType = documentType;
 	customerEntity.documentNumber = documentNumber;
-	customerEntity.birthrate = birthrate;
+	customerEntity.dateOfBirth = dateOfBirth;
 	customerEntity.address = address;
 	customerEntity.phone = phone;
 	customerEntity.email = email;

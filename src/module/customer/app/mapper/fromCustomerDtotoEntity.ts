@@ -10,7 +10,7 @@ export function fromDtoToEntity(
 	customerEntity.lastName = customer?.lastName;
 	customerEntity.documentType = customer?.documentType;
 	customerEntity.documentNumber = customer?.documentNumber;
-	customerEntity.birthrate = customer?.birthrate;
+	customerEntity.dateOfBirth = customer?.dateOfBirth;
 	customerEntity.address = customer?.address;
 	customerEntity.phone = customer?.phone;
 	customerEntity.email = customer?.email;

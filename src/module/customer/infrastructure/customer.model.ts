@@ -26,7 +26,7 @@ export class CustomerModel extends Model {
 				address: {
 					type: DataTypes.STRING,
 				},
-				birthrate: {
+				dateOfBirth: {
 					type: DataTypes.DATE,
 				},
 				phone: {

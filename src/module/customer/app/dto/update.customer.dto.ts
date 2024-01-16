@@ -5,7 +5,7 @@ export class UpdateCustomerDto {
 	lastName?: string;
 	documentType?: IdentificationEnum;
 	documentNumber?: number;
-	birthrate?: Date;
+	dateOfBirth?: Date;
 	address?: string;
 	phone?: number;
 	email?: string;

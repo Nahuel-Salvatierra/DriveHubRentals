@@ -9,7 +9,7 @@ export default class Customer {
 	lastName?: string;
 	documentType?: DocumentTypeEnum;
 	documentNumber?: number;
-	birthrate?: Date;
+	dateOfBirth?: Date;
 	address?: string;
 	phone?: number;
 	email?: string;
