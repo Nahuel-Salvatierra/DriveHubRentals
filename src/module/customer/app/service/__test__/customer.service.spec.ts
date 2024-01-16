@@ -1,5 +1,5 @@
 import { CustomerRepository, CustomerService } from "../../../customer.module";
-import { customerModel } from "../../repository/__test__/customer.repository.spec";
+import { customerModel, sampleCustomer } from "../../repository/__test__/customer.repository.spec";
 
 describe("Customer Service", () => {
 	
@@ -13,8 +13,8 @@ describe("Customer Service", () => {
 
 	const customerService = new CustomerService(repositoryMock);
 	it("Should call save once", async () => {
-		customerService.create({});
-		expect(repositoryMock.save).toHaveBeenCalledTimes(1);
+		customerService.create(sampleCustomer);
+		expect(repositoryMock.save).toHaveBeenCalledWith(sampleCustomer);
 	});
 
 	it("Should call getById once", async () => {

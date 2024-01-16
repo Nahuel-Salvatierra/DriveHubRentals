@@ -3,7 +3,7 @@ import { sampleCustomer } from "../../../../../__test__/customer.fixture";
 import { customerModel, sequelizeInstance } from "../../../../../__test__/customer.config.jest";
 customerModel
 
-describe("Customer service", () => {
+describe("Customer Repository", () => {
 	let repository: CustomerRepository;
 
 	beforeAll(() => {
