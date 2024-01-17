@@ -11,10 +11,10 @@ export class CarController {
 	}
 	configureRotes(app: Application) {
 		app.post(`${this.baseRoute}/create`, this.create.bind(this));
-		app.get(`${this.baseRoute}`);
-		app.get(`${this.baseRoute}/:id`);
-		app.delete(`${this.baseRoute}`);
-		app.put(`${this.baseRoute}`);
+		app.get(`${this.baseRoute}`, this.getAll.bind(this));
+		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
+		app.delete(`${this.baseRoute}`, this.delete.bind(this));
+		app.put(`${this.baseRoute}`, this.update.bind(this));
 	}
 
 	async create(req: Request, res: Response, next: NextFunction) {
@@ -55,6 +55,15 @@ export class CarController {
 		try {
 			const car = await this.carService.getById(+id);
 			res.send(car);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	async getAll(req: Request, res: Response, next: NextFunction) {
+		try {
+			const cars = await this.carService.getall();
+			res.send
 		} catch (error) {
 			next(error);
 		}
