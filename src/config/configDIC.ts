@@ -6,13 +6,14 @@ import {
 	CustomerService,
 } from "../module/customer/customer.module";
 import { DIContainer } from "rsdi";
-import { dbConfig } from "./init.db";
+import { dbConfig, setAssociations } from "./init.db";
 import {
 	CarModel,
 	CarRepository,
 	CarService,
 	CarController,
 } from "../module/car/car.module";
+import { RentModel } from "../module/rent/rent.module";
 
 export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
@@ -31,6 +32,11 @@ export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 			({ customerService }) => new CustomerController(customerService)
 		);
 };
+
+export const AddRentDependency = (dIContainer:DIContainer) =>{
+	let sequelize = getSequelizeDIC(dIContainer);
+	dIContainer.add("rentModel", () => RentModel.setup(sequelize));
+}
 
 export const addCommonDependency = (dIContainer: DIContainer) => {
 	dIContainer.add("sequelize", () => dbConfig());
@@ -57,8 +63,10 @@ export const configDIC = (): DIContainer => {
 	addCommonDependency(container);
 	addCustomerModuleDependency(container);
 	addCarModuleDependency(container);
+	AddRentDependency(container);
 	const db: Sequelize = container.get("sequelize" as never);
 	db.sync();
+	setAssociations(container);
 	console.log("IDC initialized", container);
 	return container;
 };

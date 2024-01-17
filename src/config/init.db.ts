@@ -1,4 +1,7 @@
+import { DIContainer } from "rsdi";
 import { Sequelize } from "sequelize";
+import { RentModel } from "../module/rent/rent.module";
+import { CustomerModel } from "../module/customer/customer.module";
 
 export const dbConfig = (): Sequelize => {
 	if (process.env.NODE_ENV === "development") {
@@ -21,3 +24,13 @@ export const dbConfig = (): Sequelize => {
 	throw Error("PROJECT_STATUS env variable not found");
 };
 
+export function setAssociations(dIContainer: DIContainer) {
+	const rent: typeof RentModel = dIContainer.get("rentModel" as never);
+	const customer: typeof CustomerModel = dIContainer.get(
+		"customerModel" as never
+	);
+	rent.belongsTo(CustomerModel, {
+		foreignKey: "customerId",
+	});
+	customer.hasOne(RentModel);
+}

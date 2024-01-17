@@ -11,14 +11,10 @@ export class RentModel extends Model {
 					autoIncrement: true,
 					unique: true,
 				},
-				customerId: {
-					type: DataTypes.INTEGER,
-					allowNull: false,
-					references: {
-						model: "Customer",
-						key: "id",
-					},
-				},
+				// customerId: {
+				// 	type: DataTypes.INTEGER,
+				// 	allowNull: false,
+				// },
 				carId: {
 					type: DataTypes.INTEGER,
 					allowNull: false,
