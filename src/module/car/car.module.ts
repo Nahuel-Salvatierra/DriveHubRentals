@@ -1,7 +1,7 @@
 import { Application } from "express";
 import { DIContainer } from "rsdi";
 import { CarController } from "./controller/car.controller";
-import { CarService } from "./app/service/car.service";
+import { CarService } from "./application/service/car.service";
 import { CarRepository } from "./infrastructure/car.repository";
 import { CarModel } from "./infrastructure/car.model";
 
