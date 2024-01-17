@@ -1,5 +1,5 @@
-import { fromCarModelToEntity } from "../app/mapper/fromCarModelToEntity";
-import { ICarRepository } from "../app/repository/car.repository.interface";
+import { fromCarModelToEntity } from "../application/mapper/fromCarModelToEntity";
+import { ICarRepository } from "../application/repository/car.repository.interface";
 import Car from "../domain/car.entity";
 import { CarModel } from "./car.model";
 

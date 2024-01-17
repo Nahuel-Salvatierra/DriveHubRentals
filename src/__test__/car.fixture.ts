@@ -1,6 +1,6 @@
-import { TransmissionEnum } from "../module/car/domain/car.entity"
+import Car, { TransmissionEnum } from "../module/car/domain/car.entity"
 
-export const sampleCar = {
+export const sampleCar:Car = {
   brand: "brand",
   model: "model",
   year: 2022,

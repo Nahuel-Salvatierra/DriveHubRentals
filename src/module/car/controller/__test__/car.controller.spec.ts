@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ICarRepository } from "../../app/repository/car.repository.interface";
+import { ICarRepository } from "../../application/repository/car.repository.interface";
 import { CarController, CarService } from "../../car.module";
 import { sampleCar } from "../../../../__test__/car.fixture";
 
