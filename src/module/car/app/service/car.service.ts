@@ -9,7 +9,7 @@ export class CarService {
 		this.carRepository = carRepository;
 	}
 
-	async create(car: Car) {
+	async create(car: Car):Promise<Car> {
 		const savedCar = await this.carRepository.save(car);
 		return savedCar;
 	}
