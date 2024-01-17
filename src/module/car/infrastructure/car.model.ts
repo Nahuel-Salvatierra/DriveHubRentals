@@ -49,5 +49,6 @@ export class CarModel extends Model {
 				updatedAt: true,
 			}
 		);
+		return CarModel;
 	}
 }

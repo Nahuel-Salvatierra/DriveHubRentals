@@ -8,7 +8,7 @@ sampleCustomer.lastName = "lastName";
 sampleCustomer.address = "address";
 sampleCustomer.documentType = DocumentTypeEnum.dni;
 sampleCustomer.documentNumber = 12345678;
-sampleCustomer.dateOfBirth = new Date();
+sampleCustomer.birthDate = new Date();
 sampleCustomer.email = "email@mainModule.com";
 sampleCustomer.phone = 1112345678;
 
@@ -19,6 +19,6 @@ savedCustomer.lastName = "lastName";
 savedCustomer.address = "address";
 savedCustomer.documentType = DocumentTypeEnum.dni;
 savedCustomer.documentNumber = 12345678;
-savedCustomer.dateOfBirth = new Date();
+savedCustomer.birthDate = new Date();
 savedCustomer.email = "email@mainModule.com";
 savedCustomer.phone = 1112345678;
