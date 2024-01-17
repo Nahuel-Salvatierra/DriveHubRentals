@@ -1,6 +1,6 @@
 import { Application, NextFunction, Request, Response } from "express";
-import { CustomerService } from "../app/service/customer.service";
-import { CreateCustomerDto } from "../app/dto/create.customer.dto";
+import { CustomerService } from "../application/service/customer.service";
+import { CreateCustomerDto } from "../application/dto/create.customer.dto";
 
 export class CustomerController {
 	baseRoute = "/customer";

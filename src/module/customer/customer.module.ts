@@ -1,8 +1,7 @@
 import { Application } from "express";
-import { IDIContainer } from "rsdi/dist/types";
 import { CustomerController } from "./controller/customer.controller";
 import { DIContainer } from "rsdi";
-import { CustomerService } from "./app/service/customer.service";
+import { CustomerService } from "./application/service/customer.service";
 import { CustomerModel } from "./infrastructure/customer.model";
 import { CustomerRepository } from "./infrastructure/customer.repository";
 

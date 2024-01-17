@@ -1,5 +1,5 @@
-import { fromCustomerModelToEntity } from "../app/mapper/fromCustomerModelToEntity";
-import { ICustomerRepository } from "../app/repository/customer.repository.interface";
+import { fromCustomerModelToEntity } from "../application/mapper/fromCustomerModelToEntity";
+import { ICustomerRepository } from "../application/repository/customer.repository.interface";
 import Customer from "../domain/customer.entity";
 import { CustomerModel } from "./customer.model";
 
