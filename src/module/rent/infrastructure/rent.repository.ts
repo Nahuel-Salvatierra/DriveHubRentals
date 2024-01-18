@@ -25,11 +25,21 @@ export class RentRepository {
 		return fromModelRentToEntity(savedRent);
 	}
 
-  async delete(rentId: number): Promise<boolean> {
-    if (!rentId) throw new Error("Rent id not defined");
-    const rentDeleted = await this.rentModel.destroy({
-      where: { id: rentId },
-    });
-    return Boolean(rentDeleted);
-  }
+	async delete(rentId: number): Promise<boolean> {
+		if (!rentId) throw new Error("Rent id not defined");
+		const rentDeleted = await this.rentModel.destroy({
+			where: { id: rentId },
+		});
+		return Boolean(rentDeleted);
+	}
+
+	async findByCarId(carId: number): Promise<Rent> {
+		const rent = await this.rentModel.findOne({ where: { carId } });
+		return fromModelRentToEntity(rent);
+	}
+
+	async findByCustomerId(customerId: number): Promise<Rent> {
+		const rent = await this.rentModel.findOne({ where: { customerId } });
+		return fromModelRentToEntity(rent);
+	}
 }
