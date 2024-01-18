@@ -1,11 +1,14 @@
+import Car from "../../car/domain/car.entity";
+import Customer from "../../customer/domain/customer.entity";
+
 export class Rent {
 	id?: number;
-	carId?: number;
+	car?: Car
+	customer?: Customer;
 	unitPrice?: number;
 	totalPrice?: number;
 	paymentMethod?: string;
 	isPaid?: boolean;
-	customerId?: number;
 	startDate?: Date;
 	endDate?: Date;
 	createdAt?: Date;

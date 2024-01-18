@@ -12,8 +12,8 @@ export const fromRentDtoToEntity = ({
 	endDate,
 }: CreateRentDto): Rent => {
 	const newRent = new Rent();
-	newRent.carId = carId;
-	newRent.customerId = customerId;
+	// newRent.carId = carId;
+	// newRent.customerId = customerId;
 	newRent.unitPrice = unitPrice;
 	newRent.totalPrice = totalPrice;
 	newRent.paymentMethod = paymentMethod;
