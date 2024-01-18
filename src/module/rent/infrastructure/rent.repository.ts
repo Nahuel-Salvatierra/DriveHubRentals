@@ -1,7 +1,10 @@
+import { fromCarModelToEntity } from "../../car/application/mapper/fromCarModelToEntity";
+import { fromCustomerModelToEntity } from "../../customer/application/mapper/fromCustomerModelToEntity";
 import { fromModelRentToEntity } from "../application/mapper/fromModelRentToEntity";
+import { IRentRepository } from "../application/repository/rent.repository.interface";
 import { Rent } from "../domain/rent.entity";
 import { RentModel } from "./../rent.module";
-export class RentRepository {
+export class RentRepository implements IRentRepository {
 	rentModel: typeof RentModel;
 	constructor(rentModel: typeof RentModel) {
 		this.rentModel = rentModel;
@@ -11,18 +14,23 @@ export class RentRepository {
 		return rents.map((rent) => fromModelRentToEntity(rent));
 	}
 
-	async getById(rentId: number) {
+	async getById(rentId: number): Promise<Rent> {
 		const rent = await this.rentModel.findByPk(rentId);
 		return fromModelRentToEntity(rent);
 	}
 
 	async save(rent: Rent): Promise<Rent> {
-		const savedRent = this.rentModel.build(
-			{ ...rent },
-			{ isNewRecord: !rent.id }
-		);
-		await savedRent.save();
-		return fromModelRentToEntity(savedRent);
+		try {
+			const savedRent = this.rentModel.build(
+				{ rent },
+				{ isNewRecord: !rent.id }
+			);
+			console.log(savedRent);
+			await savedRent.save();
+			return new Rent()
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	async delete(rentId: number): Promise<boolean> {
