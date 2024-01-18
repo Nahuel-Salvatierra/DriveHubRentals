@@ -11,14 +11,6 @@ export class RentModel extends Model {
 					autoIncrement: true,
 					unique: true,
 				},
-				carId: {
-					type: DataTypes.INTEGER,
-					allowNull: false,
-					references: {
-						model: "Car",
-						key: "id",
-					},
-				},
 				unitPrice: {
 					type: DataTypes.NUMBER,
 				},
