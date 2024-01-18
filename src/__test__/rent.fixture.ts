@@ -1,7 +1,3 @@
-import { Sequelize } from "sequelize";
-import { CreateRentDto } from "../module/rent/application/dto/create.rent.dto";
-import { Rent } from "../module/rent/domain/rent.entity";
-import { RentRepository } from "../module/rent/rent.module";
 import { sampleCar } from "./car.fixture";
 import { sampleCustomer } from "./customer.fixture";
 import { carModel, customerModel } from "./config.jest";
@@ -23,6 +19,7 @@ export async function loadFixtureRents(){
 	const carRepository = new CarRepository(carModel);
 	const customerRepository = new CustomerRepository(customerModel);
 
-	await carRepository.save(sampleCar);
-	await customerRepository.save(sampleCustomer);
+	const car = await carRepository.save(sampleCar);
+	const customer = await customerRepository.save(sampleCustomer);
+	console.log(car, customer)
 }

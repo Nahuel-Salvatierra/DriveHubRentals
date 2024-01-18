@@ -2,7 +2,7 @@ import {
 	rentModel,
 	sequelizeInstance,
 } from "../../../../__test__/config.jest";
-import { loadFixtureRents } from "../../../../__test__/rent.fixture";
+import { loadFixtureRents, sampleRent } from "../../../../__test__/rent.fixture";
 import { RentRepository } from "../rent.repository";
 
 describe("Rent repository", () => {
@@ -10,7 +10,6 @@ describe("Rent repository", () => {
 
 	beforeAll(() => {
 		repository = new RentRepository(rentModel);
-		loadFixtureRents();
 	});
 
 	beforeEach(async () => {
@@ -18,11 +17,11 @@ describe("Rent repository", () => {
 	});
 
 	it("Should create a rent", async () => {
-		// const newRent = await repository.save({
-		// 	...sampleRent,
-		// });
-		// expect(newRent.id).toEqual(1);
-		// console.log(newRent)
-		// expect(newRent.paymentMethod).toEqual(sampleRent.paymentMethod);
+		await loadFixtureRents();
+		const newRent = await repository.save({
+			...sampleRent,
+		});
+		expect(newRent.id).toEqual(1);
+		expect(newRent.paymentMethod).toEqual(sampleRent.paymentMethod);
 	});
 });
