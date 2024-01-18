@@ -1,15 +1,15 @@
 import { CarService } from "../../../car/application/service/car.service";
 import { CustomerService } from "../../../customer/customer.module";
 import { Rent } from "../../domain/rent.entity";
-import { RentRepository } from "../../infrastructure/rent.repository";
 import { CreateRentDto } from "../dto/create.rent.dto";
+import { IRentRepository } from "../repository/rent.repository.interface";
 
 export class RentService {
-	rentRepository: RentRepository;
+	rentRepository: IRentRepository;
 	carService: CarService;
 	customerService: CustomerService;
 	constructor(
-		rentRepository: RentRepository,
+		rentRepository: IRentRepository,
 		carService: CarService,
 		customerSer: CustomerService
 	) {
@@ -19,17 +19,11 @@ export class RentService {
 	}
 
 	async create(rent: Rent): Promise<Rent> {
-		const { carId, customerId } = rent;
+		const { car, customer } = rent;
 		try {
-			await this.carService.getById(carId!);
-			await this.customerService.getById(customerId!);
-			await this.isCarRent(carId!);
-			await this.isCustomerRent(customerId!);
-
+			this.validateTransaction(car?.id!, customer?.id!);
 			const rentSaved = await this.rentRepository.save({
 				...rent,
-				carId,
-				customerId,
 			});
 			return rentSaved;
 		} catch (error) {
@@ -47,5 +41,20 @@ export class RentService {
 		const rent = await this.rentRepository.findByCustomerId(customerId);
 		if (rent) throw new Error("Customer has a rented");
 		return false;
+	}
+
+	async customerHasDebt(customerId: number) {
+		
+	}
+
+	async validateTransaction(carId: number, customerId: number) {
+		try {
+			await this.customerService.getById(customerId!);
+			await this.carService.getById(carId!);
+			await this.isCarRent(carId!);
+			await this.isCustomerRent(customerId!);
+		} catch (error) {
+			throw error;
+		}
 	}
 }
