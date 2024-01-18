@@ -22,12 +22,12 @@ export class RentRepository implements IRentRepository {
 	async save(rent: Rent): Promise<Rent> {
 		try {
 			const savedRent = this.rentModel.build(
-				{ rent },
+				{ ...rent },
 				{ isNewRecord: !rent.id }
 			);
 			console.log(savedRent);
 			await savedRent.save();
-			return new Rent()
+			return fromModelRentToEntity(savedRent);
 		} catch (error) {
 			throw error;
 		}
