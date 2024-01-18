@@ -17,6 +17,15 @@ export class CreateRentDto {
 		isPaid,
 		startDate,
 		endDate,
+	}:{
+		carId: number;
+		customerId: number;
+		unitPrice: number;
+		totalPrice: number;
+		paymentMethod: string;
+		isPaid: boolean;
+		startDate: Date;
+		endDate: Date;
 	}) {
 		this.carId = carId;
 		this.customerId = customerId;
