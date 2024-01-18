@@ -13,7 +13,12 @@ import {
 	CarService,
 	CarController,
 } from "../module/car/car.module";
-import { RentModel } from "../module/rent/rent.module";
+import {
+	RentModel,
+	RentRepository,
+	RentService,
+} from "../module/rent/rent.module";
+import { RentController } from "../module/rent/controller/rent.controller";
 
 export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
@@ -33,10 +38,23 @@ export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 		);
 };
 
-export const AddRentDependency = (dIContainer:DIContainer) =>{
+export const AddRentDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
-	dIContainer.add("rentModel", () => RentModel.setup(sequelize));
-}
+	let carService = dIContainer.get("carService" as never);
+	let customerService = dIContainer.get("customerService" as never);
+	dIContainer
+		.add("rentModel", () => RentModel.setup(sequelize))
+		.add("rentRepository", ({ rentModel }) => new RentRepository(rentModel))
+		.add(
+			"rentService",
+			({ rentRepository }) =>
+				new RentService(rentRepository, carService, customerService)
+		)
+		.add(
+			"rentController",
+			({ rentService }) => new RentController(rentService)
+		);
+};
 
 export const addCommonDependency = (dIContainer: DIContainer) => {
 	dIContainer.add("sequelize", () => dbConfig());
