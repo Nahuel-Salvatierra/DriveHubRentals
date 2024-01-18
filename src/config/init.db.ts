@@ -2,6 +2,7 @@ import { DIContainer } from "rsdi";
 import { Sequelize } from "sequelize";
 import { RentModel } from "../module/rent/rent.module";
 import { CustomerModel } from "../module/customer/customer.module";
+import { CarModel } from "../module/car/car.module";
 
 export const dbConfig = (): Sequelize => {
 	if (process.env.NODE_ENV === "development") {
@@ -29,8 +30,11 @@ export function setAssociations(dIContainer: DIContainer) {
 	const customer: typeof CustomerModel = dIContainer.get(
 		"customerModel" as never
 	);
-	rent.belongsTo(CustomerModel, {
+	const car: typeof CarModel = dIContainer.get("carModel" as never);
+	rent.belongsTo(customer, {
 		foreignKey: "customerId",
 	});
-	customer.hasOne(RentModel);
+	rent.belongsTo(car, {
+		foreignKey: "carId",
+	});
 }
