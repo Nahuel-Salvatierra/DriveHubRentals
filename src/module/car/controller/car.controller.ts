@@ -9,7 +9,7 @@ export class CarController {
 	constructor(carService: CarService) {
 		this.carService = carService;
 	}
-	configureRotes(app: Application) {
+	configureRoutes(app: Application) {
 		app.post(`${this.baseRoute}/create`, this.create.bind(this));
 		app.get(`${this.baseRoute}`, this.getAll.bind(this));
 		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));

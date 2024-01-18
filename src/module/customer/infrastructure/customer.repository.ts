@@ -37,4 +37,4 @@ export class CustomerRepository implements ICustomerRepository {
 		});
 		return Boolean(customerDeleted);
 	}
-	}
+}
