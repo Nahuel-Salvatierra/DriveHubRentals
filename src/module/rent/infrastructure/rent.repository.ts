@@ -26,7 +26,6 @@ export class RentRepository implements IRentRepository {
 				{ isNewRecord: !rent.id }
 			);
 			await savedRent.save();
-			console.log(savedRent.dataValues)
 			return fromModelRentToEntity(savedRent.dataValues);
 		} catch (error) {
 			throw error;

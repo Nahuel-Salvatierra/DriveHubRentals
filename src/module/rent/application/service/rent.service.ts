@@ -1,7 +1,6 @@
 import { CarService } from "../../../car/application/service/car.service";
 import { CustomerService } from "../../../customer/customer.module";
 import { Rent } from "../../domain/rent.entity";
-import { CreateRentDto } from "../dto/create.rent.dto";
 import { IRentRepository } from "../repository/rent.repository.interface";
 
 export class RentService {
@@ -21,7 +20,7 @@ export class RentService {
 	async create(rent: Rent): Promise<Rent> {
 		const { carId, customerId } = rent;
 		try {
-			this.validateTransaction(carId!, customerId!);
+			await this.validateTransaction(carId!, customerId!);
 			const rentSaved = await this.rentRepository.save({
 				...rent,
 			});
@@ -33,14 +32,14 @@ export class RentService {
 
 	async isCarRent(carId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCarId(carId);
-		if (rent) throw new Error("Car is already rented");
+		if (rent.id) throw new Error("Car is already rented");
 		return false;
 	}
 
 	async isCustomerRent(customerId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCustomerId(customerId);
-		if (rent) throw new Error("Customer has a rented");
-		return false;
+		if (rent.id) throw new Error("Customer has a rented");
+		return false;	
 	}
 
 	async customerHasDebt(customerId: number) {
@@ -48,13 +47,9 @@ export class RentService {
 	}
 
 	async validateTransaction(carId: number, customerId: number) {
-		try {
-			await this.customerService.getById(customerId!);
-			await this.carService.getById(carId!);
-			await this.isCarRent(carId!);
-			await this.isCustomerRent(customerId!);
-		} catch (error) {
-			throw error;
-		}
+			await this.customerService.getById(customerId);
+			await this.carService.getById(carId);
+			await this.isCarRent(carId);
+			await this.isCustomerRent(customerId);
 	}
 }

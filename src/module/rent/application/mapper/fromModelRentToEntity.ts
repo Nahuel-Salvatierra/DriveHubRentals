@@ -31,6 +31,5 @@ export function fromModelRentToEntity({
 	newRent.updatedAt = updatedAt;
 	newRent.car = Car ? fromCarModelToEntity(Car):undefined;
 	newRent.customer = Customer ? fromCustomerModelToEntity(Customer):undefined;
-	console.log(newRent);
 	return newRent;
 }
