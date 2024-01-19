@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize-typescript";
 
-import { CarModel, CarRepository, CarService } from "../module/car/car.module";
-import { CustomerModel, CustomerRepository, CustomerService } from "../module/customer/customer.module";
-import { RentModel, RentRepository, RentService } from "../module/rent/rent.module";
-import { sampleCar } from "./car.fixture";
-import { sampleCustomer } from "./customer.fixture";
+import { CarModel } from "../module/car/car.module";
+import { CustomerModel } from "../module/customer/customer.module";
+import { RentModel } from "../module/rent/rent.module";
+import { sampleCar, sampleCar1 } from "./car.fixture";
+import { sampleCustomer, sampleCustomer1 } from "./customer.fixture";
 import { savedRent } from "./rent.fixture";
 
 const currentDate = new Date()
@@ -36,7 +36,8 @@ export async function loadFixtureRents(rent?: boolean) {
 	setAssociations();
 	await sequelizeInstance.sync({ force: true });
 	(await customerModel.create({ ...sampleCustomer })).save;
+	(await customerModel.create({ ...sampleCustomer1 })).save;
 	(await carModel.create({ ...sampleCar })).save;
+	(await carModel.create({ ...sampleCar1 })).save;
 	rent && (await rentModel.create({ ...savedRent })).save;
-	console.log("Fixture charged");
 }

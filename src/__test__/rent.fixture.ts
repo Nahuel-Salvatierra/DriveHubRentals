@@ -20,3 +20,14 @@ export const savedRent = {
 	startDate: new Date(),
 	endDate: new Date(+7),
 };
+
+export const sampleRent1 = {
+	customerId: 1,
+	carId: 1,
+	unitPrice: 90,
+	totalPrice: 180,
+	paymentMethod: "credit card",
+	isPaid: false,
+	startDate: new Date(),
+	endDate: new Date(+2),
+}
