@@ -1,8 +1,9 @@
 import {
+	loadFixtureRents,
 	rentModel,
 	sequelizeInstance,
 } from "../../../../__test__/config.jest";
-import { loadFixtureRents, sampleRent } from "../../../../__test__/rent.fixture";
+import { sampleRent } from "../../../../__test__/rent.fixture";
 import { RentRepository } from "../rent.repository";
 
 describe("Rent repository", () => {
@@ -23,5 +24,8 @@ describe("Rent repository", () => {
 		});
 		expect(newRent.id).toEqual(1);
 		expect(newRent.paymentMethod).toEqual(sampleRent.paymentMethod);
+		expect(newRent.carId).toEqual(sampleRent.carId)
+		expect(newRent.customerId).toEqual(sampleRent.customerId)
 	});
+
 });

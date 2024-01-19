@@ -8,8 +8,8 @@ import { RentModel } from "../../rent.module";
 export function fromModelRentToEntity({
 	id,
 	unitPrice,
-	card,
-	customer,
+	carId,
+	customerId,
 	totalPrice,
 	paymentMethod,
 	isPaid,
@@ -20,13 +20,12 @@ export function fromModelRentToEntity({
 }: any): Rent {
 	const newRent = new Rent();
 	newRent.id = id;
-	newRent.car = fromCarModelToEntity(card)
-	newRent.customer = fromCustomerModelToEntity(customer);
+	newRent.carId = carId
+	newRent.customerId = customerId
 	newRent.unitPrice = unitPrice;
 	newRent.totalPrice = totalPrice;
 	newRent.paymentMethod = paymentMethod;
 	newRent.isPaid = isPaid;
-
 	newRent.startDate = startDate;
 	newRent.endDate = endDate;
 	newRent.createdAt = createdAt;

@@ -36,5 +36,5 @@ export async function loadFixtureRents() {
 	(await customerModel.create({ ...sampleCustomer })).save;
 	(await carModel.create({ ...sampleCar })).save;
 
-	console.log("Fixture charged", rentModel.getAttributes());
+	console.log("Fixture charged");
 }

@@ -19,9 +19,9 @@ export class RentService {
 	}
 
 	async create(rent: Rent): Promise<Rent> {
-		const { car, customer } = rent;
+		const { carId, customerId } = rent;
 		try {
-			this.validateTransaction(car?.id!, customer?.id!);
+			this.validateTransaction(carId!, customerId!);
 			const rentSaved = await this.rentRepository.save({
 				...rent,
 			});
