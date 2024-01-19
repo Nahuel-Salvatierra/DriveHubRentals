@@ -20,7 +20,7 @@ import {
 } from "../module/rent/rent.module";
 import { RentController } from "../module/rent/controller/rent.controller";
 
-export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
+export const addCustomerDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
 	dIContainer
 		.add("customerModel", () => CustomerModel.setup(sequelize))
@@ -38,7 +38,7 @@ export const addCustomerModuleDependency = (dIContainer: DIContainer) => {
 		);
 };
 
-export const AddRentDependency = (dIContainer: DIContainer) => {
+export const addRentDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
 	let carService = dIContainer.get("carService" as never);
 	let customerService = dIContainer.get("customerService" as never);
@@ -64,7 +64,7 @@ function getSequelizeDIC(dIContainer: DIContainer): Sequelize {
 	return dIContainer.get("sequelize" as never);
 }
 
-export const addCarModuleDependency = (dIContainer: DIContainer) => {
+export const addCarDependency = (dIContainer: DIContainer) => {
 	let sequelize = getSequelizeDIC(dIContainer);
 	dIContainer
 		.add("carModel", () => CarModel.setup(sequelize))
@@ -79,9 +79,9 @@ export const addCarModuleDependency = (dIContainer: DIContainer) => {
 export const configDIC = (): DIContainer => {
 	const container = new DIContainer();
 	addCommonDependency(container);
-	addCustomerModuleDependency(container);
-	addCarModuleDependency(container);
-	AddRentDependency(container);
+	addCustomerDependency(container);
+	addCarDependency(container);
+	addRentDependency(container);
 	const db: Sequelize = container.get("sequelize" as never);
 	db.sync();
 	setAssociations(container);

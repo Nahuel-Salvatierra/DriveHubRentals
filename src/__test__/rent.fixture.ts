@@ -1,6 +1,6 @@
 import { sampleCar } from "./car.fixture";
 import { sampleCustomer } from "./customer.fixture";
-import { carModel, customerModel } from "./config.jest";
+import { carModel, customerModel, rentModel } from "./config.jest";
 import { CarRepository } from "../module/car/car.module";
 import { CustomerRepository } from "../module/customer/customer.module";
 
@@ -15,11 +15,4 @@ export const sampleRent = {
 	endDate: new Date(+7),
 };
 
-export async function loadFixtureRents(){
-	const carRepository = new CarRepository(carModel);
-	const customerRepository = new CustomerRepository(customerModel);
 
-	const car = await carRepository.save(sampleCar);
-	const customer = await customerRepository.save(sampleCustomer);
-	console.log(car, customer)
-}
