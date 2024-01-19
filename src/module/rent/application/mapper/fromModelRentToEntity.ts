@@ -1,9 +1,6 @@
 import { fromCarModelToEntity } from "../../../car/application/mapper/fromCarModelToEntity";
-import Car from "../../../car/domain/car.entity";
 import { fromCustomerModelToEntity } from "../../../customer/application/mapper/fromCustomerModelToEntity";
-import Customer from "../../../customer/domain/customer.entity";
 import { Rent } from "../../domain/rent.entity";
-import { RentModel } from "../../rent.module";
 
 export function fromModelRentToEntity({
 	id,
@@ -17,11 +14,13 @@ export function fromModelRentToEntity({
 	endDate,
 	createdAt,
 	updatedAt,
+	Car,
+	Customer,
 }: any): Rent {
 	const newRent = new Rent();
 	newRent.id = id;
-	newRent.carId = carId
-	newRent.customerId = customerId
+	newRent.carId = carId;
+	newRent.customerId = customerId;
 	newRent.unitPrice = unitPrice;
 	newRent.totalPrice = totalPrice;
 	newRent.paymentMethod = paymentMethod;
@@ -30,5 +29,8 @@ export function fromModelRentToEntity({
 	newRent.endDate = endDate;
 	newRent.createdAt = createdAt;
 	newRent.updatedAt = updatedAt;
+	newRent.car = Car ? fromCarModelToEntity(Car):undefined;
+	newRent.customer = Customer ? fromCustomerModelToEntity(Customer):undefined;
+	console.log(newRent);
 	return newRent;
 }

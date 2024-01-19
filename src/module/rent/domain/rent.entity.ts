@@ -1,6 +1,9 @@
+import Car from "../../car/domain/car.entity";
+import Customer from "../../customer/domain/customer.entity";
+
 export class Rent {
 	id?: number;
-	carId?: number
+	carId?: number;
 	customerId?: number;
 	unitPrice?: number;
 	totalPrice?: number;
@@ -10,4 +13,6 @@ export class Rent {
 	endDate?: Date;
 	createdAt?: Date;
 	updatedAt?: Date;
+	car?: Car;
+	customer?: Customer;
 }

@@ -4,6 +4,7 @@ import { Sequelize } from "sequelize-typescript";
 import { RentModel } from "../module/rent/rent.module";
 import { sampleCar } from "./car.fixture";
 import { sampleCustomer } from "./customer.fixture";
+import { savedRent } from "./rent.fixture";
 
 const currentDate = new Date()
 	.toISOString()
@@ -30,11 +31,11 @@ function setAssociations() {
 	});
 }
 
-export async function loadFixtureRents() {
+export async function loadFixtureRents(rent?: boolean) {
 	setAssociations();
 	await sequelizeInstance.sync({ force: true });
 	(await customerModel.create({ ...sampleCustomer })).save;
 	(await carModel.create({ ...sampleCar })).save;
-
+	rent && (await rentModel.create({ ...savedRent })).save;
 	console.log("Fixture charged");
 }

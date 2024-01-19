@@ -3,7 +3,7 @@ import {
 	rentModel,
 	sequelizeInstance,
 } from "../../../../__test__/config.jest";
-import { sampleRent } from "../../../../__test__/rent.fixture";
+import { sampleRent, savedRent } from "../../../../__test__/rent.fixture";
 import { RentRepository } from "../rent.repository";
 
 describe("Rent repository", () => {
@@ -28,4 +28,27 @@ describe("Rent repository", () => {
 		expect(newRent.customerId).toEqual(sampleRent.customerId)
 	});
 
+	it("Should get rent by ID", async ()=>{
+		await loadFixtureRents(true)
+		const rent = await repository.getById(savedRent.id)
+		expect(rent.carId).toEqual(savedRent.carId)
+		expect(rent.customerId).toEqual(savedRent.customerId)
+		expect(rent.id).toEqual(savedRent.id)
+
+	})
+
+	it("Should delete a rent", async ()=>{
+		await loadFixtureRents(true)
+		const deleted = await repository.delete(savedRent.id)
+		expect(deleted).toBeTruthy()
+	})
+
+	it("Should get all rents", async ()=>{
+		await loadFixtureRents(true)
+		const rents = await repository.getAll()
+		expect(rents.length).toEqual(1)
+		expect(rents[0].id).toEqual(1)
+		expect(rents[0].carId).toEqual(1)
+		expect(rents[0].customerId).toEqual(1)
+	})
 });

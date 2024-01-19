@@ -10,12 +10,12 @@ export class RentRepository implements IRentRepository {
 		this.rentModel = rentModel;
 	}
 	async getAll(): Promise<Rent[]> {
-		const rents = await this.rentModel.findAll();
+		const rents = await this.rentModel.findAll({ include: { all: true } });
 		return rents.map((rent) => fromModelRentToEntity(rent));
 	}
 
 	async getById(rentId: number): Promise<Rent> {
-		const rent = await this.rentModel.findByPk(rentId);
+		const rent = await this.rentModel.findByPk(rentId, { include: { all: true } });
 		return fromModelRentToEntity(rent);
 	}
 
@@ -26,8 +26,8 @@ export class RentRepository implements IRentRepository {
 				{ isNewRecord: !rent.id }
 			);
 			await savedRent.save();
-			console.log(savedRent)
-			return fromModelRentToEntity({...savedRent.dataValues});
+			console.log(savedRent.dataValues)
+			return fromModelRentToEntity(savedRent.dataValues);
 		} catch (error) {
 			throw error;
 		}
