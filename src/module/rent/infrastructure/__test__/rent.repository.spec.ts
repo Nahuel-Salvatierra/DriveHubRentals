@@ -51,4 +51,14 @@ describe("Rent repository", () => {
 		expect(rents[0].carId).toEqual(1)
 		expect(rents[0].customerId).toEqual(1)
 	})
+
+	it("Should update a rent with ID", async ()=>{
+		await loadFixtureRents(true)
+		const updatedRent = await repository.save({
+			...sampleRent,
+			id: savedRent.id
+		})
+		expect(updatedRent.totalPrice).toEqual(sampleRent.totalPrice)
+		expect(updatedRent.unitPrice).toEqual(sampleRent.unitPrice)
+	})
 });
