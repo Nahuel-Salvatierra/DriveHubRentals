@@ -1,7 +1,8 @@
-import { CarModel } from "../module/car/car.module";
-import { CustomerModel } from "../module/customer/customer.module";
 import { Sequelize } from "sequelize-typescript";
-import { RentModel } from "../module/rent/rent.module";
+
+import { CarModel, CarRepository, CarService } from "../module/car/car.module";
+import { CustomerModel, CustomerRepository, CustomerService } from "../module/customer/customer.module";
+import { RentModel, RentRepository, RentService } from "../module/rent/rent.module";
 import { sampleCar } from "./car.fixture";
 import { sampleCustomer } from "./customer.fixture";
 import { savedRent } from "./rent.fixture";
