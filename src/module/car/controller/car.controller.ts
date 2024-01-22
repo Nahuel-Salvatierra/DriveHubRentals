@@ -10,7 +10,7 @@ export class CarController {
 		this.carService = carService;
 	}
 	configureRoutes(app: Application) {
-		app.post(`${this.baseRoute}/create`, this.create.bind(this));
+		app.post(`${this.baseRoute}`, this.create.bind(this));
 		app.get(`${this.baseRoute}`, this.getAll.bind(this));
 		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
 		app.delete(`${this.baseRoute}`, this.delete.bind(this));

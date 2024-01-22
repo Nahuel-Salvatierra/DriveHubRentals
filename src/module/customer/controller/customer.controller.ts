@@ -9,7 +9,7 @@ export class CustomerController {
 		this.customerService = customerService;
 	}
 	configureRoutes(app: Application) {
-		app.post(`${this.baseRoute}/create`, this.create.bind(this));
+		app.post(`${this.baseRoute}`, this.create.bind(this));
 		app.get(`${this.baseRoute}`, this.getAll.bind(this));
 		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
 		app.put(`${this.baseRoute}/:id`, this.update.bind(this));
