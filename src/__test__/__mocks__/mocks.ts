@@ -58,6 +58,7 @@ export let rentServiceMock: RentService = {
 	getAll: jest.fn(() => Promise.resolve([])),
 	getById: jest.fn(() => Promise.resolve({} as Rent)),
 	delete: jest.fn(() => Promise.resolve(true)),
+	update: jest.fn(() => Promise.resolve({} as Rent)),
 	validateTransaction: jest.fn(),
 	customerHasDebt: jest.fn(() => Promise.resolve()),
 	checkCarRent: jest.fn(() => Promise.resolve(false)),
