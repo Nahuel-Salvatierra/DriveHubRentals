@@ -23,7 +23,11 @@ export class RentService {
 		const { carId, customerId } = rent;
 		try {
 			await this.validateTransaction(carId!, customerId!);
-			rent.totalPrice = this.setTotalPrice(rent.endDate, rent.startDate, rent.unitPrice);
+			rent.totalPrice = this.setTotalPrice(
+				rent.endDate,
+				rent.startDate,
+				rent.unitPrice
+			);
 			const rentSaved = await this.rentRepository.save(rent);
 			return rentSaved;
 		} catch (error) {
@@ -33,17 +37,22 @@ export class RentService {
 
 	async checkCarRent(carId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCarId(carId);
-		if (rent.id || rent?.status === StatusEnum.pending) throw new Error("Car is already rented");
+		if (rent?.status === StatusEnum.pending)
+			throw new Error("Car is already rented");
 		return false;
 	}
 
 	async checkCustomerRent(customerId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCustomerId(customerId);
-		if (rent.id || rent?.status === StatusEnum.pending) throw new Error("Customer has a rented");
+		if (rent?.status === StatusEnum.pending)
+			throw new Error("Customer has a rented");
 		return false;
 	}
 
-	async validateTransaction(carId: number, customerId: number) {
+	async validateTransaction(
+		carId: number,
+		customerId: number
+	): Promise<void> {
 		await this.customerService.getById(customerId);
 		await this.carService.getById(carId);
 		await this.checkCarRent(carId);
@@ -77,13 +86,22 @@ export class RentService {
 		}
 	}
 
-	async update(rent: CreateRentDto, rentId: number) {
+	async update(rent: Rent, rentId: number) {
 		try {
+			console.log('rent',rent)
 			const rentToUpdated = await this.rentRepository.getById(rentId);
+			const definedRent = {};
+			Object.entries(rent).forEach(([key, value]) => {
+				if (value !== undefined) {
+					definedRent[key] = value;
+				}
+			});
+			console.log('definedRent',definedRent);
 			const rentEntity = fromModelRentToEntity({
 				...rentToUpdated,
-				...rent,
+				...definedRent,
 			});
+			console.log('rentEntity',rentEntity);
 			const updatedRent = await this.rentRepository.save(rentEntity);
 			return fromModelRentToEntity(updatedRent);
 		} catch (error) {
@@ -91,10 +109,10 @@ export class RentService {
 		}
 	}
 
-	setTotalPrice(endDate:Date, startDate:Date, unitPrice:number):number {
-		const endTime = endDate.getTime();
-		const startTime = startDate.getTime()
-		const diff = endTime - startTime
-		return unitPrice * diff / (1000 * 60 * 60 * 24)
+	setTotalPrice(endDate: Date, startDate: Date, unitPrice: number): number {
+		const endTime = new Date(endDate).getTime();
+		const startTime = new Date(startDate).getTime();
+		const diff = endTime - startTime;
+		return Math.ceil((unitPrice * diff) / (1000 * 60 * 60 * 24));
 	}
 }
