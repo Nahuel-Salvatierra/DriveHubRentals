@@ -4,6 +4,6 @@ export interface IRentRepository {
 	getById(rentId: number): Promise<Rent>;
 	save(rent: Rent): Promise<Rent>;
 	delete(rentId: number): Promise<boolean>;
-	findByCarId(carId: number): Promise<Rent>;
-	findByCustomerId(customerId: number);
+	findByCarId(carId: number): Promise<Rent | null>
+	findByCustomerId(customerId: number): Promise<Rent|null>
 }

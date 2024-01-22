@@ -1,10 +1,14 @@
+import { StatusEnum } from "../../domain/rent.entity";
+
 export class CreateRentDto {
+	id?: number;
 	carId: number;
 	customerId: number;
 	unitPrice: number;
 	totalPrice: number;
 	paymentMethod: string;
 	isPaid: boolean;
+	status?: StatusEnum;
 	startDate: Date;
 	endDate: Date;
 
@@ -17,7 +21,9 @@ export class CreateRentDto {
 		isPaid,
 		startDate,
 		endDate,
-	}:{
+		id,
+		status,
+	}: {
 		carId: number;
 		customerId: number;
 		unitPrice: number;
@@ -26,6 +32,8 @@ export class CreateRentDto {
 		isPaid: boolean;
 		startDate: Date;
 		endDate: Date;
+		id?: number;
+		status?: StatusEnum;
 	}) {
 		this.carId = carId;
 		this.customerId = customerId;
@@ -35,6 +43,8 @@ export class CreateRentDto {
 		this.isPaid = isPaid;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.id = id;
+		this.status = status;
 	}
 
 	validate() {

@@ -10,6 +10,7 @@ export function fromModelRentToEntity({
 	totalPrice,
 	paymentMethod,
 	isPaid,
+	status,
 	startDate,
 	endDate,
 	createdAt,
@@ -27,18 +28,11 @@ export function fromModelRentToEntity({
 		startDate,
 		endDate
 	);
-	newRent.id = id;
-	newRent.carId = carId;
-	newRent.customerId = customerId;
-	newRent.unitPrice = unitPrice;
-	newRent.totalPrice = totalPrice;
-	newRent.paymentMethod = paymentMethod;
-	newRent.isPaid = isPaid;
-	newRent.startDate = startDate;
-	newRent.endDate = endDate;
+	newRent.id = id ? id : undefined;
 	newRent.createdAt = createdAt;
 	newRent.updatedAt = updatedAt;
-	newRent.car = Car ? fromCarModelToEntity(Car):undefined;
-	newRent.customer = Customer ? fromCustomerModelToEntity(Customer):undefined;
+	newRent.status = status ? status : undefined;
+	newRent.car = Car ? fromCarModelToEntity(Car) : undefined;
+	newRent.customer = Customer ? fromCustomerModelToEntity(Customer) : undefined;
 	return newRent;
 }

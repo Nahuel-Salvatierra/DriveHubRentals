@@ -50,11 +50,11 @@ export class RentController {
 
 	async update(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params;
-		const newRent = new CreateRentDto(req.body);
+		const newRent = new CreateRentDto({...req.body, id: id});
 		try {
 			newRent.validate();
 			const rent = fromRentDtoToEntity(newRent);
-			const rentUpdated = await this.rentService.update(newRent, +id);
+			const rentUpdated = await this.rentService.update(rent, +id);
 			res.send(rentUpdated);
 		} catch (error) {
 			next(error);

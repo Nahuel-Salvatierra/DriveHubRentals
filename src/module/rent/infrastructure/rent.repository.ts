@@ -40,13 +40,13 @@ export class RentRepository implements IRentRepository {
 		return Boolean(rentDeleted);
 	}
 
-	async findByCarId(carId: number): Promise<Rent> {
+	async findByCarId(carId: number): Promise<Rent | null> {
 		const rent = await this.rentModel.findOne({ where: { carId } });
-		return fromModelRentToEntity(rent);
+		return rent? fromModelRentToEntity(rent): null
 	}
 
-	async findByCustomerId(customerId: number): Promise<Rent> {
+	async findByCustomerId(customerId: number): Promise<Rent|null> {
 		const rent = await this.rentModel.findOne({ where: { customerId } });
-		return fromModelRentToEntity(rent);
+		return rent? fromModelRentToEntity(rent):null
 	}
 }

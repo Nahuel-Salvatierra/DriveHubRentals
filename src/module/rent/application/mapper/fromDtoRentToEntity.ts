@@ -10,6 +10,7 @@ export const fromRentDtoToEntity = ({
 	isPaid,
 	startDate,
 	endDate,
+	status,
 }: CreateRentDto): Rent => {
 	const newRent = new Rent(
 		carId,
@@ -21,6 +22,7 @@ export const fromRentDtoToEntity = ({
 		startDate,
 		endDate
 	);
+	status? newRent.status = status : undefined;
 
 	return newRent;
 };
