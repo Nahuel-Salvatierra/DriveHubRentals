@@ -1,6 +1,11 @@
 import Car from "../../car/domain/car.entity";
 import Customer from "../../customer/domain/customer.entity";
 
+export enum StatusEnum {
+	finished = "finished",
+	pending = "pending",
+	canceled = "canceled",
+}
 export class Rent {
 	id?: number;
 	carId: number;
@@ -15,6 +20,7 @@ export class Rent {
 	updatedAt?: Date;
 	car?: Car;
 	customer?: Customer;
+	status?: StatusEnum;
 
 	available(): boolean {
 		const endDate = this.endDate.getTime();
@@ -24,7 +30,7 @@ export class Rent {
 		}
 		return false;
 	}
-
+	
 	constructor(
 		carId: number,
 		customerId: number,

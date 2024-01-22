@@ -1,4 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { StatusEnum } from "../domain/rent.entity";
 
 export class RentModel extends Model {
 	static setup(sequelizeInstance: Sequelize) {
@@ -30,6 +31,10 @@ export class RentModel extends Model {
 				endDate: {
 					type: DataTypes.DATE,
 				},
+				status: {
+					type: DataTypes.STRING,
+					defaultValue: StatusEnum.pending,
+				}
 			},
 			{
 				sequelize: sequelizeInstance,

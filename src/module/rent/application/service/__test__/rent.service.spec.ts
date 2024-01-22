@@ -18,21 +18,26 @@ describe("Rent Service", () => {
 	});
 
 	it("Should call save once", async () => {
+		const totalPrice = jest.spyOn(rentService, "setTotalPrice");
+		const validate = jest.spyOn(rentService, "validateTransaction");
 		await rentService.create(sampleRent);
 		expect(rentRepositoryMock.save).toHaveBeenCalledTimes(1);
 		expect(rentRepositoryMock.save).toHaveBeenCalledWith(sampleRent);
-		expect(rentRepositoryMock.save).toHaveBeenCalledWith(sampleRent);
+		expect(totalPrice).toHaveBeenCalled();
+		expect(validate).toHaveBeenCalled();
 	});
 
 	it("Should validate transaction", async () => {
+		const checkCar = jest.spyOn(rentService, "checkCarRent")
+		const checkCustomer = jest.spyOn(rentService, "checkCustomerRent")
 		await rentService.validateTransaction(
 			sampleRent.customerId,
 			sampleRent.carId
 		);
 		expect(carServiceMock.getById).toHaveBeenCalledWith(1);
 		expect(customerServiceMock.getById).toHaveBeenCalledWith(1);
-		// expect(rentService.isCarRent).toHaveBeenCalled();
-		// expect(rentService.isCustomerRent).toHaveBeenCalled();
+		expect(checkCar).toHaveBeenCalled();
+		expect(checkCustomer).toHaveBeenCalled();
 	});
 
 	it("Should validate if car has a rented", async () => {
@@ -45,6 +50,30 @@ describe("Rent Service", () => {
 		await rentService.checkCustomerRent(1);
 		expect(rentRepositoryMock.findByCustomerId).toHaveBeenCalled();
 		expect(rentRepositoryMock.findByCustomerId).toHaveBeenCalledWith(1);
+	});
+
+	it("Should throw error car in rent has status pending", async () => {
+		jest.spyOn(rentRepositoryMock, "findByCarId").mockResolvedValue({
+			id: 1,
+			status: "pending",
+		} as Rent);
+		try {
+			await rentService.checkCarRent(1);
+		} catch (error) {
+			expect(error).toBeDefined();
+		}
+	});
+
+	it("Should throw error customer in rent has status pending", async () => {
+		jest.spyOn(rentRepositoryMock, "findByCustomerId").mockResolvedValue({
+			id: 1,
+			status: "pending",
+		} as Rent);
+		try {
+			await rentService.checkCarRent(1);
+		} catch (error) {
+			expect(error).toBeDefined();
+		}
 	});
 
 	it("Should throw error if car is already rented", async () => {

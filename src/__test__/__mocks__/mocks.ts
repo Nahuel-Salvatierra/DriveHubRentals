@@ -4,11 +4,7 @@ import {
 	CustomerService,
 } from "../../module/customer/customer.module";
 import { Rent } from "../../module/rent/domain/rent.entity";
-import {
-	RentController,
-	RentRepository,
-	RentService,
-} from "../../module/rent/rent.module";
+import { RentRepository, RentService } from "../../module/rent/rent.module";
 import { carModel, customerModel, rentModel } from "../config.jest";
 
 export let rentRepositoryMock: RentRepository = {
@@ -59,8 +55,8 @@ export let rentServiceMock: RentService = {
 	getById: jest.fn(() => Promise.resolve({} as Rent)),
 	delete: jest.fn(() => Promise.resolve(true)),
 	update: jest.fn(() => Promise.resolve({} as Rent)),
+	setTotalPrice: jest.fn(),
 	validateTransaction: jest.fn(),
-	customerHasDebt: jest.fn(() => Promise.resolve()),
 	checkCarRent: jest.fn(() => Promise.resolve(false)),
 	checkCustomerRent: jest.fn(() => Promise.resolve(false)),
 	rentRepository: rentRepositoryMock,
