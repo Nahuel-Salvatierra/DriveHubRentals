@@ -18,11 +18,23 @@ describe("Rent Controller", () => {
 		controller = new RentController(rentServiceMock);
 	});
 	it("Should create a new rent", async () => {
-		const newRent = await controller.create(
+		await controller.create(
 			req as Request,
 			res as Response,
 			next
 		);
 		expect(rentServiceMock.create).toHaveBeenCalledTimes(1);
+		expect(rentServiceMock.create).toHaveBeenCalledWith(sampleRent)
 	});
+
+	it("Should get all rents", async () => {
+		await controller.getAll(req as Request, res as Response, next);
+		expect(rentServiceMock.getAll).toHaveBeenCalledTimes(1);
+	})
+
+	it("Should get a rent by ID", async () => {
+		await controller.getById(req as Request, res as Response, next);
+		expect(rentServiceMock.getById).toHaveBeenCalledTimes(1);
+		expect(rentServiceMock.getById).toHaveBeenCalledWith(1)
+	})
 });
