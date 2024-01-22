@@ -28,4 +28,23 @@ export class RentController {
 			next(error);
 		}
 	}
+
+	async getAll(req: Request, res: Response, next: NextFunction) {
+		try {
+			const rents = await this.rentService.getAll();
+			res.send(rents);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	async getById(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params;
+		try {
+			const rent = await this.rentService.getById(+id);
+			res.send(rent);
+		} catch (error) {
+			next(error);
+		}
+	}
 }
