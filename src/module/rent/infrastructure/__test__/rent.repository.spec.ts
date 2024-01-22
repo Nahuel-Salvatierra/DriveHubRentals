@@ -56,4 +56,18 @@ describe("Rent repository", () => {
 		expect(updatedRent.totalPrice).toEqual(sampleRent.totalPrice);
 		expect(updatedRent.unitPrice).toEqual(sampleRent.unitPrice);
 	});
+
+	it("Should find rent by customer ID", async () => {
+		await loadFixtureRents(true);
+		const rent = await repository.findByCustomerId(1);
+		expect(rent!.id).toEqual(1);
+		expect(rent!.customerId).toEqual(1);
+	})
+
+	it("Should find rent by car ID", async () => {
+		await loadFixtureRents(true);
+		const rent = await repository.findByCarId(1);
+		expect(rent!.id).toEqual(1);
+		expect(rent!.carId).toEqual(1);
+	})
 });
