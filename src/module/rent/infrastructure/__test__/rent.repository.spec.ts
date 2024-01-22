@@ -19,46 +19,41 @@ describe("Rent repository", () => {
 
 	it("Should create a rent", async () => {
 		await loadFixtureRents();
-		const newRent = await repository.save({
-			...sampleRent,
-		});
+		const newRent = await repository.save(sampleRent);
 		expect(newRent.id).toEqual(1);
 		expect(newRent.paymentMethod).toEqual(sampleRent.paymentMethod);
-		expect(newRent.carId).toEqual(sampleRent.carId)
-		expect(newRent.customerId).toEqual(sampleRent.customerId)
+		expect(newRent.carId).toEqual(sampleRent.carId);
+		expect(newRent.customerId).toEqual(sampleRent.customerId);
 	});
 
-	it("Should get rent by ID", async ()=>{
-		await loadFixtureRents(true)
-		const rent = await repository.getById(savedRent.id)
-		expect(rent.carId).toEqual(savedRent.carId)
-		expect(rent.customerId).toEqual(savedRent.customerId)
-		expect(rent.id).toEqual(savedRent.id)
+	it("Should get rent by ID", async () => {
+		await loadFixtureRents(true);
+		const rent = await repository.getById(savedRent.id);
+		expect(rent.carId).toEqual(savedRent.carId);
+		expect(rent.customerId).toEqual(savedRent.customerId);
+		expect(rent.id).toEqual(savedRent.id);
+	});
 
-	})
+	it("Should delete a rent", async () => {
+		await loadFixtureRents(true);
+		const deleted = await repository.delete(savedRent.id);
+		expect(deleted).toBeTruthy();
+	});
 
-	it("Should delete a rent", async ()=>{
-		await loadFixtureRents(true)
-		const deleted = await repository.delete(savedRent.id)
-		expect(deleted).toBeTruthy()
-	})
+	it("Should get all rents", async () => {
+		await loadFixtureRents(true);
+		const rents = await repository.getAll();
+		expect(rents.length).toEqual(1);
+		expect(rents[0].id).toEqual(1);
+		expect(rents[0].carId).toEqual(1);
+		expect(rents[0].customerId).toEqual(1);
+	});
 
-	it("Should get all rents", async ()=>{
-		await loadFixtureRents(true)
-		const rents = await repository.getAll()
-		expect(rents.length).toEqual(1)
-		expect(rents[0].id).toEqual(1)
-		expect(rents[0].carId).toEqual(1)
-		expect(rents[0].customerId).toEqual(1)
-	})
-
-	it("Should update a rent with ID", async ()=>{
-		await loadFixtureRents(true)
-		const updatedRent = await repository.save({
-			...sampleRent,
-			id: savedRent.id
-		})
-		expect(updatedRent.totalPrice).toEqual(sampleRent.totalPrice)
-		expect(updatedRent.unitPrice).toEqual(sampleRent.unitPrice)
-	})
+	it("Should update a rent with ID", async () => {
+		await loadFixtureRents(true);
+		sampleRent.id = 1;
+		const updatedRent = await repository.save(sampleRent);
+		expect(updatedRent.totalPrice).toEqual(sampleRent.totalPrice);
+		expect(updatedRent.unitPrice).toEqual(sampleRent.unitPrice);
+	});
 });

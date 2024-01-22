@@ -37,4 +37,9 @@ describe("Rent Controller", () => {
 		expect(rentServiceMock.getById).toHaveBeenCalledTimes(1);
 		expect(rentServiceMock.getById).toHaveBeenCalledWith(1)
 	})
+	it("Should delete a rent by ID", async () => {
+		await controller.delete(req as Request, res as Response, next);
+		expect(rentServiceMock.delete).toHaveBeenCalledTimes(1);
+		expect(rentServiceMock.delete).toHaveBeenCalledWith(1)
+	})
 });
