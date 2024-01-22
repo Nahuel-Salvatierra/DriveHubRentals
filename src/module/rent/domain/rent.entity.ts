@@ -16,7 +16,7 @@ export class Rent {
 	car?: Car;
 	customer?: Customer;
 
-	availability(): boolean {
+	available(): boolean {
 		const endDate = this.endDate.getTime();
 		const now = new Date().getTime();
 		if (endDate > now) {
@@ -24,6 +24,7 @@ export class Rent {
 		}
 		return false;
 	}
+
 	constructor(
 		carId: number,
 		customerId: number,

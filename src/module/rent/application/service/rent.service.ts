@@ -1,6 +1,7 @@
 import { CarService } from "../../../car/application/service/car.service";
 import { CustomerService } from "../../../customer/customer.module";
 import { Rent } from "../../domain/rent.entity";
+import { CreateRentDto } from "../dto/create.rent.dto";
 import { fromModelRentToEntity } from "../mapper/fromModelRentToEntity";
 import { IRentRepository } from "../repository/rent.repository.interface";
 
@@ -23,7 +24,7 @@ export class RentService {
 		try {
 			await this.validateTransaction(carId!, customerId!);
 			const rentSaved = await this.rentRepository.save(rent);
-			return rentSaved
+			return rentSaved;
 		} catch (error) {
 			throw error;
 		}
@@ -50,21 +51,44 @@ export class RentService {
 		await this.checkCustomerRent(customerId);
 	}
 
-	async getAll(){
+	async getAll() {
 		try {
 			const rents = await this.rentRepository.getAll();
-			return rents.map((rent)=>fromModelRentToEntity(rent))
+			return rents.map((rent) => fromModelRentToEntity(rent));
 		} catch (error) {
-			throw error
+			throw error;
 		}
 	}
 
-	async getById(rentId: number){
+	async getById(rentId: number) {
 		try {
 			const rent = await this.rentRepository.getById(rentId);
-			return fromModelRentToEntity(rent)
+			return fromModelRentToEntity(rent);
 		} catch (error) {
-			throw error
+			throw error;
+		}
+	}
+
+	async delete(rentId: number) {
+		try {
+			const deleted = await this.rentRepository.delete(rentId);
+			return deleted;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async update(rent: CreateRentDto, rentId: number) {
+		try {
+			const rentToUpdated = await this.rentRepository.getById(rentId);
+			const rentEntity = fromModelRentToEntity({
+				...rentToUpdated,
+				...rent,
+			});
+			const updatedRent = await this.rentRepository.save(rentEntity);
+			return fromModelRentToEntity(updatedRent);
+		} catch (error) {
+			throw error;
 		}
 	}
 }

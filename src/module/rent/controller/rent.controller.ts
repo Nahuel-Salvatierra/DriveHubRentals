@@ -11,10 +11,10 @@ export class RentController {
 	}
 	configureRoutes(app: Application) {
 		app.post(`${this.baseRoute}/create`, this.create.bind(this));
-		app.get(`${this.baseRoute}`);
-		app.get(`${this.baseRoute}/:id`);
-		app.put(`${this.baseRoute}/:id`);
-		app.delete(`${this.baseRoute}/:id`);
+		app.get(`${this.baseRoute}`, this.getAll.bind(this));
+		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
+		app.put(`${this.baseRoute}/:id`, this.update.bind(this));
+		app.delete(`${this.baseRoute}/:id`, this.delete.bind(this));
 	}
 
 	async create(req: Request, res: Response, next: NextFunction) {
@@ -43,6 +43,29 @@ export class RentController {
 		try {
 			const rent = await this.rentService.getById(+id);
 			res.send(rent);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	async update(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params;
+		const newRent = new CreateRentDto(req.body);
+		try {
+			newRent.validate();
+			const rent = fromRentDtoToEntity(newRent);
+			const rentUpdated = await this.rentService.update(newRent, +id);
+			res.send(rentUpdated);
+		} catch (error) {
+			next(error);
+		}
+	}
+
+	async delete(req: Request, res: Response, next: NextFunction) {
+		const { id } = req.params;
+		try {
+			await this.rentService.delete(+id);
+			res.send("ok").status(200);
 		} catch (error) {
 			next(error);
 		}
