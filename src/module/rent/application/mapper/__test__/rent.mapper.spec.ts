@@ -20,8 +20,9 @@ describe("Rent Mapper", () => {
 	});
 
   it("Should convert a dto rent to entity", () => {
-    const newRentDto = new CreateRentDto(sampleRent);
+    const newRentDto = new CreateRentDto({...sampleRent, id : 1});
     const newRent = fromRentDtoToEntity(newRentDto);
     expect(newRent).toBeInstanceOf(Rent);
+    expect(newRent.id).toBe(1)
   })
 });

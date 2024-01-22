@@ -97,4 +97,23 @@ describe("Rent Service", () => {
 			expect(error).toBeDefined();
 		}
 	});
+
+	it("Should be false when car is available", async () => {
+	 const result = await rentService.checkCarRent(99);
+	 expect(result).toBe(false);
+	})
+	
+	it("Should be false when customer is available", async () => {
+		const result = await rentService.checkCustomerRent(99);
+		expect(result).toBe(false);
+	 })
+ 
+	it("Should set total price", () => {
+		const totalPrice = rentService.setTotalPrice(
+			new Date("2022-10-20 10:23:42"),
+			new Date("2022-10-10 10:30:32"),
+			90
+		);
+		expect(totalPrice).toBe(900);
+	})
 });
