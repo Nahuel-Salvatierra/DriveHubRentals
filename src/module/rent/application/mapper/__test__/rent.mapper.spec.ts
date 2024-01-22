@@ -3,7 +3,7 @@ import { sampleCustomer } from "../../../../../__test__/customer.fixture";
 import { sampleRent } from "../../../../../__test__/rent.fixture";
 import Car from "../../../../car/domain/car.entity";
 import Customer from "../../../../customer/domain/customer.entity";
-import { Rent } from "../../../domain/rent.entity";
+import { Rent, StatusEnum } from "../../../domain/rent.entity";
 import { CreateRentDto } from "../../dto/create.rent.dto";
 import { fromRentDtoToEntity } from "../fromDtoRentToEntity";
 import { fromModelRentToEntity } from "../fromModelRentToEntity";
@@ -24,5 +24,12 @@ describe("Rent Mapper", () => {
     const newRent = fromRentDtoToEntity(newRentDto);
     expect(newRent).toBeInstanceOf(Rent);
     expect(newRent.id).toBe(1)
+  })
+
+  it("Should convert a dto rent to entity with status finished", () => {
+
+    const newRentDto = new CreateRentDto({...sampleRent, id : 1, status: StatusEnum.finished});
+    const newRent = fromRentDtoToEntity(newRentDto);
+    expect(newRent.status).toBe(StatusEnum.finished);
   })
 });

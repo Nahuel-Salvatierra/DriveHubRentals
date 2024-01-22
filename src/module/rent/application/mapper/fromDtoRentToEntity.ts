@@ -2,6 +2,7 @@ import { Rent } from "../../domain/rent.entity";
 import { CreateRentDto } from "../dto/create.rent.dto";
 
 export const fromRentDtoToEntity = ({
+	id,
 	carId,
 	customerId,
 	unitPrice,
@@ -22,6 +23,7 @@ export const fromRentDtoToEntity = ({
 		startDate,
 		endDate
 	);
+	id? newRent.id = id : undefined;
 	status? newRent.status = status : undefined;
 
 	return newRent;
