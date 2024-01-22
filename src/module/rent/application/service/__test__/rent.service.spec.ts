@@ -4,6 +4,7 @@ import {
 	rentRepositoryMock,
 } from "../../../../../__test__/__mocks__/mocks";
 import { sampleRent } from "../../../../../__test__/rent.fixture";
+import { Rent } from "../../../domain/rent.entity";
 import { RentService } from "../rent.service";
 
 describe("Rent Service", () => {
@@ -35,13 +36,13 @@ describe("Rent Service", () => {
 	});
 
 	it("Should validate if car has a rented", async () => {
-		await rentService.isCarRent(1);
+		await rentService.checkCarRent(1);
 		expect(rentRepositoryMock.findByCarId).toHaveBeenCalled();
 		expect(rentRepositoryMock.findByCarId).toHaveBeenCalledWith(1);
 	});
 
 	it("Should validate if customer has a rented", async () => {
-		await rentService.isCustomerRent(1);
+		await rentService.checkCustomerRent(1);
 		expect(rentRepositoryMock.findByCustomerId).toHaveBeenCalled();
 		expect(rentRepositoryMock.findByCustomerId).toHaveBeenCalledWith(1);
 	});
@@ -49,9 +50,9 @@ describe("Rent Service", () => {
 	it("Should throw error if car is already rented", async () => {
 		jest.spyOn(rentRepositoryMock, "findByCarId").mockResolvedValue({
 			id: 1,
-		});
+		} as Rent);
 		try {
-			await rentService.isCarRent(1);
+			await rentService.checkCarRent(1);
 		} catch (error) {
 			expect(error).toBeDefined();
 		}
@@ -60,9 +61,9 @@ describe("Rent Service", () => {
 	it("Should throw error if customer has a rented", async () => {
 		jest.spyOn(rentRepositoryMock, "findByCustomerId").mockResolvedValue({
 			id: 1,
-		});
+		} as Rent);
 		try {
-			await rentService.isCustomerRent(1);
+			await rentService.checkCustomerRent(1);
 		} catch (error) {
 			expect(error).toBeDefined();
 		}

@@ -1,15 +1,23 @@
 import { CarRepository, CarService } from "../../module/car/car.module";
-import { CustomerRepository, CustomerService } from "../../module/customer/customer.module";
-import { RentRepository, RentService } from "../../module/rent/rent.module";
+import {
+	CustomerRepository,
+	CustomerService,
+} from "../../module/customer/customer.module";
+import { Rent } from "../../module/rent/domain/rent.entity";
+import {
+	RentController,
+	RentRepository,
+	RentService,
+} from "../../module/rent/rent.module";
 import { carModel, customerModel, rentModel } from "../config.jest";
 
 export let rentRepositoryMock: RentRepository = {
-	save: jest.fn(() => Promise.resolve({})),
+	save: jest.fn(() => Promise.resolve({} as Rent)),
 	getAll: jest.fn(() => Promise.resolve([])),
-	getById: jest.fn(() => Promise.resolve({})),
+	getById: jest.fn(() => Promise.resolve({} as Rent)),
 	delete: jest.fn(() => Promise.resolve(true)),
-	findByCarId: jest.fn(() => Promise.resolve({})),
-	findByCustomerId: jest.fn(() => Promise.resolve({})),
+	findByCarId: jest.fn(() => Promise.resolve({} as Rent)),
+	findByCustomerId: jest.fn(() => Promise.resolve({} as Rent)),
 	rentModel: rentModel,
 };
 export let carRepositoryMock: CarRepository = {
@@ -45,13 +53,13 @@ export let carServiceMock: CarService = {
 	carRepository: carRepositoryMock,
 };
 
-// export let rentServiceMock:RentService = {
-// 	create: jest.fn(() => Promise.resolve({})),
-// 	validateTransaction: jest.fn(),
-// 	customerHasDebt: jest.fn(() => Promise.resolve()),
-// 	isCarRent	: jest.fn(() => Promise.resolve(false)),
-// 	isCustomerRent: jest.fn(() => Promise.resolve(false)),
-// 	rentRepository: rentRepositoryMock,
-// 	carService: carServiceMock,
-// 	customerService: customerServiceMock,
-// }
+export let rentServiceMock: RentService = {
+	create: jest.fn(() => Promise.resolve({} as Rent)),
+	validateTransaction: jest.fn(),
+	customerHasDebt: jest.fn(() => Promise.resolve()),
+	checkCarRent: jest.fn(() => Promise.resolve(false)),
+	checkCustomerRent: jest.fn(() => Promise.resolve(false)),
+	rentRepository: rentRepositoryMock,
+	carService: carServiceMock,
+	customerService: customerServiceMock,
+};
