@@ -11,14 +11,16 @@ export const fromRentDtoToEntity = ({
 	startDate,
 	endDate,
 }: CreateRentDto): Rent => {
-	const newRent = new Rent();
-	// newRent.carId = carId;
-	// newRent.customerId = customerId;
-	newRent.unitPrice = unitPrice;
-	newRent.totalPrice = totalPrice;
-	newRent.paymentMethod = paymentMethod;
-	newRent.isPaid = isPaid;
-	newRent.startDate = startDate;
-	newRent.endDate = endDate;
+	const newRent = new Rent(
+		carId,
+		customerId,
+		unitPrice,
+		totalPrice,
+		paymentMethod,
+		isPaid,
+		startDate,
+		endDate
+	);
+
 	return newRent;
 };

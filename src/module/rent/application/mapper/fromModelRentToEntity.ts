@@ -17,7 +17,16 @@ export function fromModelRentToEntity({
 	Car,
 	Customer,
 }: any): Rent {
-	const newRent = new Rent();
+	const newRent = new Rent(
+		carId,
+		customerId,
+		unitPrice,
+		totalPrice,
+		paymentMethod,
+		isPaid,
+		startDate,
+		endDate
+	);
 	newRent.id = id;
 	newRent.carId = carId;
 	newRent.customerId = customerId;
