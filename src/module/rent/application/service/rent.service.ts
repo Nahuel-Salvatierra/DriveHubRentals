@@ -49,4 +49,22 @@ export class RentService {
 		await this.checkCarRent(carId);
 		await this.checkCustomerRent(customerId);
 	}
+
+	async getAll(){
+		try {
+			const rents = await this.rentRepository.getAll();
+			return rents.map((rent)=>fromModelRentToEntity(rent))
+		} catch (error) {
+			throw error
+		}
+	}
+
+	async getById(rentId: number){
+		try {
+			const rent = await this.rentRepository.getById(rentId);
+			return fromModelRentToEntity(rent)
+		} catch (error) {
+			throw error
+		}
+	}
 }
