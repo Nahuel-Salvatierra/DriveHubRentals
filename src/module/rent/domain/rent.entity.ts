@@ -22,15 +22,6 @@ export class Rent {
 	customer?: Customer;
 	status?: StatusEnum;
 
-	available(): boolean {
-		const endDate = this.endDate.getTime();
-		const now = new Date().getTime();
-		if (endDate > now) {
-			return true;
-		}
-		return false;
-	}
-	
 	constructor(
 		carId: number,
 		customerId: number,
