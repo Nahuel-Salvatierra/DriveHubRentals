@@ -32,4 +32,14 @@ describe("Rent Mapper", () => {
     const newRent = fromRentDtoToEntity(newRentDto);
     expect(newRent.status).toBe(StatusEnum.finished);
   })
+
+  it("Should update a dto rent to entity", () => {
+    const newUpdateDto:Partial<Rent> = { status : StatusEnum.canceled, paymentMethod: 'card', isPaid: true };
+    const rentToUpdate = Object.assign(sampleRent, newUpdateDto)
+    const newRent = fromRentDtoToEntity(rentToUpdate);
+
+    expect(newRent.status).toBe(StatusEnum.canceled);
+    expect(newRent.paymentMethod).toBe('card');
+    expect(newRent.isPaid).toBe(true);
+  })
 });
