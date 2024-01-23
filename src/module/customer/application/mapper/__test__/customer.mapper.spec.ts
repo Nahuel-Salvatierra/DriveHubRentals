@@ -1,6 +1,6 @@
 import Customer from "../../../domain/customer.entity";
 import { fromCustomerModelToEntity } from "../fromCustomerModelToEntity";
-import { sampleCustomer } from "../../../../../__test__/customer.fixture";
+import { sampleCustomer } from "../../../../../__test__/fixtures/customer.fixture";
 
 describe("Mappers", () => {
 	it("Should convert a customer dto to entity", () => {

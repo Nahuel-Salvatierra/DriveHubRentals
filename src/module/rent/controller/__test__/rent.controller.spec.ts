@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { rentServiceMock } from "../../../../__test__/__mocks__/mocks";
 import { RentController, RentService } from "../../rent.module";
-import { sampleRent } from "../../../../__test__/rent.fixture";
+import { sampleRent } from "../../../../__test__/fixtures/rent.fixture";
 import { Rent } from "../../domain/rent.entity";
 
 describe("Rent Controller", () => {

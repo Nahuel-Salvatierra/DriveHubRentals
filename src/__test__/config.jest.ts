@@ -3,9 +3,9 @@ import { Sequelize } from "sequelize-typescript";
 import { CarModel } from "../module/car/car.module";
 import { CustomerModel } from "../module/customer/customer.module";
 import { RentModel } from "../module/rent/rent.module";
-import { sampleCar, sampleCar1 } from "./car.fixture";
-import { sampleCustomer, sampleCustomer1 } from "./customer.fixture";
-import { savedRent } from "./rent.fixture";
+import { sampleCar, sampleCar1 } from "./fixtures/car.fixture";
+import { sampleCustomer, sampleCustomer1 } from "./fixtures/customer.fixture";
+import { savedRent } from "./fixtures/rent.fixture";
 
 const currentDate = new Date()
 	.toISOString()

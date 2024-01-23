@@ -1,5 +1,5 @@
-import { CreateRentDto } from "../module/rent/application/dto/create.rent.dto";
-import { Rent } from "../module/rent/domain/rent.entity";
+import { CreateRentDto } from "../../module/rent/application/dto/create.rent.dto";
+import { Rent } from "../../module/rent/domain/rent.entity";
 
 export const sampleRent = new CreateRentDto({
 	customerId: 1,

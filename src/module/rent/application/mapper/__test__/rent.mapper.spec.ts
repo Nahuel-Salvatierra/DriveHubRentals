@@ -1,6 +1,6 @@
-import { sampleCar } from "../../../../../__test__/car.fixture";
-import { sampleCustomer } from "../../../../../__test__/customer.fixture";
-import { sampleRent } from "../../../../../__test__/rent.fixture";
+import { sampleCar } from "../../../../../__test__/fixtures/car.fixture";
+import { sampleCustomer } from "../../../../../__test__/fixtures/customer.fixture";
+import { sampleRent } from "../../../../../__test__/fixtures/rent.fixture";
 import Car from "../../../../car/domain/car.entity";
 import Customer from "../../../../customer/domain/customer.entity";
 import { Rent, StatusEnum } from "../../../domain/rent.entity";

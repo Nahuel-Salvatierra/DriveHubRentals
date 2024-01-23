@@ -1,4 +1,4 @@
-import Car, { TransmissionEnum } from "../module/car/domain/car.entity"
+import Car, { TransmissionEnum } from "../../module/car/domain/car.entity"
 
 export const sampleCar:Car = {
   brand: "brand",

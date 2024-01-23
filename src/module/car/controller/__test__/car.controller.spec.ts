@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ICarRepository } from "../../application/repository/car.repository.interface";
 import { CarController, CarService } from "../../car.module";
-import { sampleCar } from "../../../../__test__/car.fixture";
+import { sampleCar } from "../../../../__test__/fixtures/car.fixture";
 
 describe("Car Controller", () => {
 	const carRepository: ICarRepository = {

@@ -1,4 +1,4 @@
-import { sampleCar } from "../../../../../__test__/car.fixture";
+import { sampleCar } from "../../../../../__test__/fixtures/car.fixture";
 import { carModel } from "../../../../../__test__/config.jest";
 import { CarRepository } from "../../../car.module";
 import { CarService } from "../car.service";

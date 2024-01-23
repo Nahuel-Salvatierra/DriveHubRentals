@@ -1,5 +1,5 @@
 import { CustomerRepository } from "../../../customer.module";
-import { sampleCustomer } from "../../../../../__test__/customer.fixture";
+import { sampleCustomer } from "../../../../../__test__/fixtures/customer.fixture";
 import { customerModel, sequelizeInstance } from "../../../../../__test__/config.jest";
 customerModel
 

@@ -6,7 +6,7 @@ import {
 import {
 	sequelizeInstance,
 } from "../../../../../__test__/config.jest";
-import { sampleRent } from "../../../../../__test__/rent.fixture";
+import { sampleRent } from "../../../../../__test__/fixtures/rent.fixture";
 import { Rent } from "../../../domain/rent.entity";
 import { UpdateRentDto } from "../../dto/update.rent.dto";
 import { RentService } from "../rent.service";

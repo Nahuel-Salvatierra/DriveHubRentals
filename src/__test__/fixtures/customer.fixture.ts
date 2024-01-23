@@ -1,6 +1,6 @@
 import Customer, {
 	DocumentTypeEnum,
-} from "../module/customer/domain/customer.entity";
+} from "../../module/customer/domain/customer.entity";
 
 export const sampleCustomer = new Customer();
 sampleCustomer.name = "name";

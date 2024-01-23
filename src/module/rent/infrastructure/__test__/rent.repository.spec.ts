@@ -3,7 +3,7 @@ import {
 	rentModel,
 	sequelizeInstance,
 } from "../../../../__test__/config.jest";
-import { sampleRent, savedRent } from "../../../../__test__/rent.fixture";
+import { savedRent, sampleRent } from "../../../../__test__/fixtures/rent.fixture";
 import { RentRepository } from "../rent.repository";
 
 describe("Rent repository", () => {
