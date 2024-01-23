@@ -15,7 +15,9 @@ export class RentRepository implements IRentRepository {
 	}
 
 	async getById(rentId: number): Promise<Rent> {
-		const rent = await this.rentModel.findByPk(rentId, { include: { all: true } });
+		const rent = await this.rentModel.findByPk(rentId, {
+			include: { all: true },
+		});
 		return fromModelRentToEntity(rent);
 	}
 
@@ -42,11 +44,11 @@ export class RentRepository implements IRentRepository {
 
 	async findByCarId(carId: number): Promise<Rent | null> {
 		const rent = await this.rentModel.findOne({ where: { carId } });
-		return rent? fromModelRentToEntity(rent): null
+		return rent ? fromModelRentToEntity(rent) : null;
 	}
 
-	async findByCustomerId(customerId: number): Promise<Rent|null> {
+	async findByCustomerId(customerId: number): Promise<Rent | null> {
 		const rent = await this.rentModel.findOne({ where: { customerId } });
-		return rent? fromModelRentToEntity(rent):null
+		return rent ? fromModelRentToEntity(rent) : null;
 	}
 }

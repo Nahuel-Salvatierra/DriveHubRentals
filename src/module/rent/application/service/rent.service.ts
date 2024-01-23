@@ -2,6 +2,8 @@ import { CarService } from "../../../car/application/service/car.service";
 import { CustomerService } from "../../../customer/customer.module";
 import { Rent, StatusEnum } from "../../domain/rent.entity";
 import { CreateRentDto } from "../dto/create.rent.dto";
+import { UpdateRentDto } from "../dto/update.rent.dto";
+import { fromRentDtoToEntity } from "../mapper/fromDtoRentToEntity";
 import { fromModelRentToEntity } from "../mapper/fromModelRentToEntity";
 import { IRentRepository } from "../repository/rent.repository.interface";
 
@@ -19,37 +21,38 @@ export class RentService {
 		this.customerService = customerSer;
 	}
 
-	async create(rent: Rent): Promise<Rent> {
+	async create(rent: CreateRentDto): Promise<Rent> {
+		const newRent = fromRentDtoToEntity(rent);
 		const { carId, customerId } = rent;
 		try {
 			await this.validateTransaction(carId!, customerId!);
-			rent.totalPrice = this.setTotalPrice(
-				rent.endDate,
-				rent.startDate,
-				rent.unitPrice
+			newRent.totalPrice = this.setTotalPrice(
+				newRent.endDate,
+				newRent.startDate,
+				newRent.unitPrice
 			);
-			const rentSaved = await this.rentRepository.save(rent);
+			const rentSaved = await this.rentRepository.save(newRent);
 			return rentSaved;
 		} catch (error) {
 			throw error;
 		}
 	}
 
-	async checkCarRent(carId: number): Promise<false> {
+	private async checkCarRent(carId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCarId(carId);
 		if (rent?.status === StatusEnum.pending)
 			throw new Error("Car is already rented");
 		return false;
 	}
 
-	async checkCustomerRent(customerId: number): Promise<false> {
+	private async checkCustomerRent(customerId: number): Promise<false> {
 		const rent = await this.rentRepository.findByCustomerId(customerId);
 		if (rent?.status === StatusEnum.pending)
 			throw new Error("Customer has a rented");
 		return false;
 	}
 
-	async validateTransaction(
+	private async validateTransaction(
 		carId: number,
 		customerId: number
 	): Promise<void> {
@@ -86,20 +89,14 @@ export class RentService {
 		}
 	}
 
-	async update(rent: Rent, rentId: number) {
+	async update(rent: UpdateRentDto, rentId: number) {
 		try {
-			const rentToUpdated = await this.rentRepository.getById(rentId);
-			const newDefinedValues = {};
-			Object.entries(rent).forEach(([key, value]) => {
-				if (value !== undefined) {
-					newDefinedValues[key] = value;
-				}
-			});
-			const rentEntity = fromModelRentToEntity({
-				...rentToUpdated,
-				...newDefinedValues,
-			});
-			const updatedRent = await this.rentRepository.save(rentEntity);
+			const rentToUpdated = fromModelRentToEntity(
+				await this.rentRepository.getById(rentId)
+			);
+			Object.assign(rentToUpdated, rent);
+			console.log(rentToUpdated)
+			const updatedRent = await this.rentRepository.save(rentToUpdated);
 			return fromModelRentToEntity(updatedRent);
 		} catch (error) {
 			throw error;

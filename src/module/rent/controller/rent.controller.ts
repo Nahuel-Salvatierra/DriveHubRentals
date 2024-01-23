@@ -2,6 +2,7 @@ import { Application, Request, Response, NextFunction } from "express";
 import { RentService } from "../rent.module";
 import { CreateRentDto } from "../application/dto/create.rent.dto";
 import { fromRentDtoToEntity } from "../application/mapper/fromDtoRentToEntity";
+import { UpdateRentDto } from "../application/dto/update.rent.dto";
 
 export class RentController {
 	baseRoute = "/rent";
@@ -21,8 +22,7 @@ export class RentController {
 		const newRent = new CreateRentDto(req.body);
 		try {
 			newRent.validate();
-			const rent = fromRentDtoToEntity(newRent);
-			const rentSaved = await this.rentService.create(rent);
+			const rentSaved = await this.rentService.create(newRent);
 			res.send(rentSaved);
 		} catch (error) {
 			next(error);
@@ -50,11 +50,9 @@ export class RentController {
 
 	async update(req: Request, res: Response, next: NextFunction) {
 		const { id } = req.params;
-		const newRent = new CreateRentDto({...req.body, id: id});
+		const newRent = new UpdateRentDto({...req.body, id: id});
 		try {
-			newRent.validate();
-			const rent = fromRentDtoToEntity(newRent);
-			const rentUpdated = await this.rentService.update(rent, +id);
+			const rentUpdated = await this.rentService.update(newRent, +id);
 			res.send(rentUpdated);
 		} catch (error) {
 			next(error);

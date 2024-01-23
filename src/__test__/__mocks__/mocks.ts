@@ -7,7 +7,7 @@ import { Rent } from "../../module/rent/domain/rent.entity";
 import { RentRepository, RentService } from "../../module/rent/rent.module";
 import { carModel, customerModel, rentModel } from "../config.jest";
 
-export let rentRepositoryMock: RentRepository = {
+export const rentRepositoryMock: RentRepository = {
 	save: jest.fn(() => Promise.resolve({} as Rent)),
 	getAll: jest.fn(() => Promise.resolve([])),
 	getById: jest.fn(() => Promise.resolve({} as Rent)),
@@ -16,14 +16,14 @@ export let rentRepositoryMock: RentRepository = {
 	findByCustomerId: jest.fn(() => Promise.resolve({} as Rent)),
 	rentModel: rentModel,
 };
-export let carRepositoryMock: CarRepository = {
+export const carRepositoryMock: CarRepository = {
 	save: jest.fn(() => Promise.resolve({})),
 	getById: jest.fn(() => Promise.resolve({})),
 	getAll: jest.fn(() => Promise.resolve([])),
 	delete: jest.fn(() => Promise.resolve(true)),
 	carModel: carModel,
 };
-export let customerRepositoryMock: CustomerRepository = {
+export const customerRepositoryMock: CustomerRepository = {
 	save: jest.fn(() => Promise.resolve({})),
 	getById: jest.fn(() => Promise.resolve({})),
 	getAll: jest.fn(() => Promise.resolve([])),
@@ -31,7 +31,7 @@ export let customerRepositoryMock: CustomerRepository = {
 	customerModel: customerModel,
 };
 
-export let customerServiceMock: CustomerService = {
+export const customerServiceMock: CustomerService = {
 	create: jest.fn(() => Promise.resolve({})),
 	getById: jest.fn(() => Promise.resolve({})),
 	getAll: jest.fn(() => Promise.resolve([])),
@@ -40,7 +40,7 @@ export let customerServiceMock: CustomerService = {
 	customerRepository: customerRepositoryMock,
 };
 
-export let carServiceMock: CarService = {
+export const carServiceMock: CarService = {
 	create: jest.fn(() => Promise.resolve({})),
 	getall: jest.fn(() => Promise.resolve([])),
 	getById: jest.fn(() => Promise.resolve({})),
@@ -49,16 +49,18 @@ export let carServiceMock: CarService = {
 	carRepository: carRepositoryMock,
 };
 
-export let rentServiceMock: RentService = {
+type RentServiceMock = Omit<
+	RentService,
+	"validateTransaction" | "checkCarRent" | "checkCustomerRent"
+>;
+
+export const rentServiceMock: RentServiceMock = {
 	create: jest.fn(() => Promise.resolve({} as Rent)),
 	getAll: jest.fn(() => Promise.resolve([])),
 	getById: jest.fn(() => Promise.resolve({} as Rent)),
 	delete: jest.fn(() => Promise.resolve(true)),
 	update: jest.fn(() => Promise.resolve({} as Rent)),
 	setTotalPrice: jest.fn(),
-	validateTransaction: jest.fn(),
-	checkCarRent: jest.fn(() => Promise.resolve(false)),
-	checkCustomerRent: jest.fn(() => Promise.resolve(false)),
 	rentRepository: rentRepositoryMock,
 	carService: carServiceMock,
 	customerService: customerServiceMock,
