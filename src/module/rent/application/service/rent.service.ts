@@ -88,20 +88,17 @@ export class RentService {
 
 	async update(rent: Rent, rentId: number) {
 		try {
-			console.log('rent',rent)
 			const rentToUpdated = await this.rentRepository.getById(rentId);
-			const definedRent = {};
+			const newDefinedValues = {};
 			Object.entries(rent).forEach(([key, value]) => {
 				if (value !== undefined) {
-					definedRent[key] = value;
+					newDefinedValues[key] = value;
 				}
 			});
-			console.log('definedRent',definedRent);
 			const rentEntity = fromModelRentToEntity({
 				...rentToUpdated,
-				...definedRent,
+				...newDefinedValues,
 			});
-			console.log('rentEntity',rentEntity);
 			const updatedRent = await this.rentRepository.save(rentEntity);
 			return fromModelRentToEntity(updatedRent);
 		} catch (error) {
