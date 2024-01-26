@@ -13,7 +13,7 @@ export class RentService {
 	customerService: CustomerService;
 	constructor(
 		rentRepository: IRentRepository,
-		carService: CarService,
+			carService: CarService,
 		customerSer: CustomerService
 	) {
 		this.rentRepository = rentRepository;

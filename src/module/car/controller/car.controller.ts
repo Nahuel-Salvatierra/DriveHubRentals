@@ -63,7 +63,7 @@ export class CarController {
 	async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const cars = await this.carService.getall();
-			res.send
+			res.send(cars)
 		} catch (error) {
 			next(error);
 		}

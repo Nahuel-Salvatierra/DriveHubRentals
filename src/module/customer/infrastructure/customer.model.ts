@@ -35,12 +35,6 @@ export class CustomerModel extends Model {
 				email: {
 					type: DataTypes.STRING,
 				},
-				updateAt: {
-					type: DataTypes.DATE,
-				},
-				createdAt: {
-					type: DataTypes.DATE,
-				},
 			},
 			{
 				sequelize: sequelizeInstance,

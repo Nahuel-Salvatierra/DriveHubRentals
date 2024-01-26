@@ -35,12 +35,6 @@ export class CarModel extends Model {
 				transmission: {
 					type: DataTypes.STRING,
 				},
-				updateAt: {
-					type: DataTypes.DATE,
-				},
-				createdAt: {
-					type: DataTypes.DATE,
-				},
 			},
 			{
 				sequelize: sequelizeInstance,
