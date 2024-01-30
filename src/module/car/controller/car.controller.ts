@@ -9,8 +9,8 @@ export class CarController {
 	constructor(carService: CarService) {
 		this.carService = carService;
 	}
-	configureRotes(app: Application) {
-		app.post(`${this.baseRoute}/create`, this.create.bind(this));
+	configureRoutes(app: Application) {
+		app.post(`${this.baseRoute}`, this.create.bind(this));
 		app.get(`${this.baseRoute}`, this.getAll.bind(this));
 		app.get(`${this.baseRoute}/:id`, this.getById.bind(this));
 		app.delete(`${this.baseRoute}`, this.delete.bind(this));
@@ -63,7 +63,7 @@ export class CarController {
 	async getAll(req: Request, res: Response, next: NextFunction) {
 		try {
 			const cars = await this.carService.getall();
-			res.send
+			res.send(cars)
 		} catch (error) {
 			next(error);
 		}

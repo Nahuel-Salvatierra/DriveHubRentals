@@ -1,6 +1,6 @@
 import { CustomerRepository } from "../../../customer.module";
-import { sampleCustomer } from "../../../../../__test__/customer.fixture";
-import { customerModel, sequelizeInstance } from "../../../../../__test__/customer.config.jest";
+import { sampleCustomer } from "../../../../../__test__/fixtures/customer.fixture";
+import { customerModel, sequelizeInstance } from "../../../../../__test__/config.jest";
 customerModel
 
 describe("Customer Repository", () => {
@@ -17,6 +17,7 @@ describe("Customer Repository", () => {
 	it("Should create a customer", async () => {
 		const newCustomer = await repository.save(sampleCustomer);
 		expect(newCustomer.id).toEqual(1);
+		expect(newCustomer.name).toEqual(sampleCustomer.name);
 	});
 
 	it("Should get a customer by ID", async () => {

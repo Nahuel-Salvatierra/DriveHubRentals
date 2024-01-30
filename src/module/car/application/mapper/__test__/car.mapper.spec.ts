@@ -1,4 +1,4 @@
-import { sampleCar } from "../../../../../__test__/car.fixture";
+import { sampleCar } from "../../../../../__test__/fixtures/car.fixture";
 import Car from "../../../domain/car.entity";
 import { fromCarDtoToEntity } from "../fromCarDtoToEntity";
 import { fromCarModelToEntity } from "../fromCarModelToEntity";

@@ -1,9 +1,8 @@
-import { sampleCar } from "../../../../__test__/car.fixture";
+import { sampleCar } from "../../../../__test__/fixtures/car.fixture";
 import {
 	carModel,
 	sequelizeInstance,
-} from "../../../../__test__/customer.config.jest";
-import { sampleCustomer } from "../../../../__test__/customer.fixture";
+} from "../../../../__test__/config.jest";
 import { CarRepository } from "../car.repository";
 
 describe("Car Repository", () => {
@@ -20,6 +19,7 @@ describe("Car Repository", () => {
 	it("Should create a car", async () => {
 		const newCar = await repository.save(sampleCar);
 		expect(newCar.id).toEqual(1);
+		expect(newCar.brand).toEqual(sampleCar.brand);
 	});
 
 	it("Should get all cars", async () => {
@@ -32,6 +32,7 @@ describe("Car Repository", () => {
 		await repository.save(sampleCar);
 		const car = await repository.getById(1);
 		expect(car.id).toEqual(1);
+		expect(car.brand).toEqual(sampleCar.brand);
 	});
 
 	it("Should delete a car", async () => {

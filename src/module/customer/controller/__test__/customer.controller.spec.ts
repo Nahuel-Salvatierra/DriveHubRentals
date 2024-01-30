@@ -1,5 +1,5 @@
 import { TsJestCompileOptions } from "ts-jest";
-import { sampleCustomer } from "../../../../__test__/customer.fixture";
+import { sampleCustomer } from "../../../../__test__/fixtures/customer.fixture";
 import { ICustomerRepository } from "../../application/repository/customer.repository.interface";
 import { CustomerService, CustomerController } from "../../customer.module";
 import { NextFunction, Request, Response } from "express";

@@ -1,8 +1,9 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { StatusEnum } from "../domain/rent.entity";
 
-export class CarModel extends Model {
+export class RentModel extends Model {
 	static setup(sequelizeInstance: Sequelize) {
-		CarModel.init(
+		RentModel.init(
 			{
 				id: {
 					type: DataTypes.INTEGER,
@@ -11,38 +12,37 @@ export class CarModel extends Model {
 					autoIncrement: true,
 					unique: true,
 				},
-				brand: {
-					type: DataTypes.STRING,
-				},
-				model: {
-					type: DataTypes.STRING,
-				},
-				year: {
+				unitPrice: {
 					type: DataTypes.NUMBER,
 				},
-				kms: {
+				totalPrice: {
 					type: DataTypes.NUMBER,
 				},
-				color: {
+				paymentMethod: {
 					type: DataTypes.STRING,
 				},
-				AC: {
+				isPaid: {
 					type: DataTypes.BOOLEAN,
+					defaultValue: false,
 				},
-				passengers: {
-					type: DataTypes.NUMBER,
+				startDate: {
+					type: DataTypes.DATE,
 				},
-				transmission: {
+				endDate: {
+					type: DataTypes.DATE,
+				},
+				status: {
 					type: DataTypes.STRING,
-				},
+					defaultValue: StatusEnum.pending,
+				}
 			},
 			{
 				sequelize: sequelizeInstance,
-				modelName: "Car",
+				modelName: "Rent",
 				timestamps: true,
 				updatedAt: true,
 			}
 		);
-		return CarModel;
+		return RentModel;
 	}
 }

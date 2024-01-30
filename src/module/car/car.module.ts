@@ -7,7 +7,7 @@ import { CarModel } from "./infrastructure/car.model";
 
 function initCarModule(app:Application, container:DIContainer){
   const carController:CarController = (container).get("carController" as never)
-  carController.configureRotes(app)
+  carController.configureRoutes(app)
 }
 
 export {
